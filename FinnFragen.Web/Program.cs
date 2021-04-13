@@ -30,6 +30,16 @@ namespace FinnFragen.Web
 
 		public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder(args)
+				.ConfigureAppConfiguration((hostingContext, config) =>
+				{
+					IHostEnvironment env = hostingContext.HostingEnvironment;
+
+					config.AddJsonFile("appsettings.json", optional: true)
+						.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+						.AddJsonFile("/config/appsettings.json", optional: true);
+
+					config.AddEnvironmentVariables();
+				})
 				.ConfigureWebHostDefaults(webBuilder =>
 				{
 					webBuilder.UseStartup<Startup>();
