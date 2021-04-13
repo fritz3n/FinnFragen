@@ -25,5 +25,5 @@ jobs:
         with:
           push: true
           tags: fritzen/finnfragen:latest
-          context: ./FinnFragen.Web/
+          context: .
           file: ./FinnFragen.Web/Dockerfile
