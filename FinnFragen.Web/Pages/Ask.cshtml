@@ -1,0 +1,78 @@
+﻿@page
+@model AskModel
+@{
+    ViewData["Title"] = "Neue Frage";
+}
+
+<h1 class="text-center">Was ist deine Frage?</h1>
+
+<div class="row justify-content-center align-content-center">
+    <div class="col-md-8 col">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Name" class="form-control" placeholder="p"/>
+                <label asp-for="Input.Name"></label>
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Title" class="form-control"  placeholder="p"/>
+                <label asp-for="Input.Title"></label>
+                <span asp-validation-for="Input.Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Input.Tags"></label>
+                <input asp-for="Input.Tags" class="form-control" id="tags" />
+                <span asp-validation-for="Input.Tags" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <textarea asp-for="Input.Question" id="mde">## Deine Frage</textarea>
+                <span asp-validation-for="Input.Question" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-2">
+                <input asp-for="Input.Email" class="form-control" placeholder="p"/>
+                <label asp-for="Input.Email"></label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-check mb-3">
+                <input asp-for="Input.SaveId" class="form-check-input" />
+                <label asp-for="Input.SaveId" class="form-check-label"></label>
+                <span asp-validation-for="Input.SaveId" class="text-danger"></span>
+            </div>
+
+            <div class="form-check mb-3">
+                <input asp-for="Input.Consent" class="form-check-input" />
+                <label asp-for="Input.Consent" class="form-check-label"></label>
+                <span asp-validation-for="Input.Consent" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <div class="g-recaptcha" data-sitekey="@Model.SiteKey"></div>
+            </div>
+
+
+
+            <button type="submit" class="btn btn-primary">Fragen</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="~/lib/simplemde/simplemde.min.js"></script>
+    <script src="~/lib/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+    <script src="~/js/Index.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+}
+@section Css
+{
+    <link rel="stylesheet" href="~/lib/simplemde/simplemde.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap-tagsinput/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="~/css/Index.css">
+}

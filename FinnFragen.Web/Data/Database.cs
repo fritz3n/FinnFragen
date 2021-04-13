@@ -13,6 +13,10 @@ namespace FinnFragen.Web.Data
 {
 	public class Database : IdentityDbContext
 	{
+
+		public DbSet<Question> Questions { get; set; }
+		public DbSet<Message> Messages { get; set; }
+
 		public Database(DbContextOptions<Database> options)
 			: base(options)
 		{
@@ -21,6 +25,8 @@ namespace FinnFragen.Web.Data
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
+
+			builder.Entity<Question>().HasMany(q => q.Messages).WithOne(m => m.Question);
 		}
 
 		public static async Task Initialize(IServiceProvider serviceProvider)
@@ -49,6 +55,34 @@ namespace FinnFragen.Web.Data
 			}
 
 			await context.SaveChangesAsync();
+		}
+
+		const string IdCharacters = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+		const int IdLength = 10;
+
+		public static string GenerateID(Random rnd = null)
+		{
+			rnd ??= new Random();
+
+			var sb = new StringBuilder(IdLength);
+
+			for (int i = 0; i < IdLength; i++)
+				sb.Append(IdCharacters[rnd.Next(IdCharacters.Length)]);
+
+			return sb.ToString();
+		}
+
+		public async Task<string> GetNewID()
+		{
+			var rnd = new Random();
+			string id;
+
+			do
+			{
+				id = GenerateID(rnd);
+			} while (await Questions.AnyAsync(q => q.Identifier == id));
+
+			return id;
 		}
 	}
 }

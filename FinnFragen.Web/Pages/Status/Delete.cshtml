@@ -1,0 +1,21 @@
+﻿@page "{id}"
+@model FinnFragen.Web.Pages.Status.DeleteModel
+@{
+    ViewData["Title"] = "Frage löschen";
+}
+
+@if (Model.Deleted)
+{
+    <h2>Deine Frage wurde gelöscht.</h2>
+}
+else
+{
+    <form method="post">
+        <h1 class="text-center">Frage löschen</h1>
+        <hr />
+        <p>Bist du sicher, dass du Frage löschen willst? Du kannst den Prozess nicht rückgängig machen.</p>
+        <p>Mit dem löschen werden alle Daten inklusive Nachrichten und Antwort unwiederbringlich gelöscht.</p>
+
+        <button type="submit" class="btn btn-danger">Frage löschen</button>
+    </form>
+}

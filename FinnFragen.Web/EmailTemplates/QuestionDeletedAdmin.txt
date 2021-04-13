@@ -1,0 +1,4 @@
+﻿"{{name}}" hat die Frage "{{title}}" gelöscht.
+-Message-
+
+### {{name}} hat die Frage {{title}} gelöscht.

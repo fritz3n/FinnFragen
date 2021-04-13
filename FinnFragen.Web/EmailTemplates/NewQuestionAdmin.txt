@@ -1,0 +1,11 @@
+﻿Neue Frage von "{{name}}" | ID{{identifier}}
+-Message-
+
+Frage von "{{name}}" mail "{{email}}"
+
+[Status](https://finnfragen.de/Status/Status/{{identifier}})
+
+Title: {{title}}
+
+----
+@Content@

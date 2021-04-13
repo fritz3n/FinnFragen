@@ -1,5 +1,6 @@
 using FinnFragen.Web.Data;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,7 +18,13 @@ namespace FinnFragen.Web
 		{
 			IHost host = CreateHostBuilder(args).Build();
 			using (IServiceScope scope = host.Services.CreateScope())
+			{
+				Database db = scope.ServiceProvider.GetService<Database>();
+
+				await db.Database.MigrateAsync();
+
 				await Database.Initialize(scope.ServiceProvider);
+			}
 			host.Run();
 		}
 

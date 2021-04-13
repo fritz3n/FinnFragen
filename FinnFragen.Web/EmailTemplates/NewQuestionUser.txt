@@ -1,0 +1,12 @@
+﻿Danke für deine Frage! | ID{{identifier}}
+-Message-
+-=-=-=-=-=-
+# Danke für deine Frage!
+
+Finn bearbeitet soeben deiner Frage. Wenn es Rückfragen gibt, wirst du darüber informiert.  
+Du kannst weitere Nachrichten oder Informationen an Finn schicken, indem du auf diese Email antwortest. Bitte lasse dabei `ID{{identifier}}` im Betreff, damit wir deine Email zur richtigen Frage zuordnen können.  
+Um deine Nachrichten zu formatieren kannst du [Markdown](https://simplemde.com/markdown-guide) verwenden.  
+Den Status deiner Frage kannst du jederzeit unter [finnfragen.de/Status/Status/{{identifier}}](https://finnfragen.de/Status/Status/{{identifier}}) einsehen.
+
+
+Wenn du diese Emails nichtmehr bekommen möchtest, kannst du deine Frage unter [finnfragen.de/Status/Delete/{{identifier}}](https://finnfragen.de/Status/Delete/{{identifier}}) löschen.

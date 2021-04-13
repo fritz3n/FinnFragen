@@ -1,0 +1,242 @@
+﻿@page "{id}"
+@model FinnFragen.Web.Pages.Status.StatusModel
+@{
+    ViewData["Title"] = "Status";
+}
+
+@if (Model.IsAdmin)
+{
+    <h2>Moin Finn</h2>
+    <p>Frage gestellt von "@Model.Question.Name"</p>
+}
+else
+{
+    <h2>Hallo @Model.Question.Name</h2>
+}
+
+@if (Model.Question.QuestionState == Question.State.Asked)
+{
+    <p>Deine Frage vom @Model.Question.QuestionDate.ToString("dd.MM.yyyy") wurde noch nicht beantwortet.</p>
+}
+else if (Model.Question.QuestionState == Question.State.Answered)
+{
+    <p>
+        Deine Frage vom @Model.Question.QuestionDate.ToString("dd.MM.yyyy") wurde am @Model.Question.QuestionDate.ToString("dd.MM.yyyy") beantwortet
+        und ist seit dem <a asp-page="/Questions/Question" asp-route-name="@Model.Question.ShortName">öffentlich einsehbar</a>.
+    </p>
+    <p>Du kannst deine Frage jederzeit am unteren Ende der Seite löschen oder zurückziehen.</p>
+}
+else if (Model.Question.QuestionState == Question.State.Blocked)
+{
+    <p>Deine Frage vom @Model.Question.QuestionDate.ToString("dd.MM.yyyy") wurde blockiert und du kannst keine Nachrichten mehr senden.</p>
+}
+
+@if (Model.IsAdmin)
+{
+    <a asp-page="/Status/Answer" asp-route-id="@Model.Question.Identifier" class="btn btn-primary mb-2">Beantworten</a>
+}
+
+
+<div class="card border-secondary mb-3">
+    <div class="card-header d-flex align-content-center align-items-center">
+        <span class="flex-grow-1">Frage</span>
+        @if (Model.Question.QuestionState == Question.State.Answered)
+        {
+            <span class="badge shallow bg-success mr-3 d-block text-white">Beantwortet</span>
+        }
+        else if (Model.Question.QuestionState == Question.State.Asked)
+        {
+            <span class="badge shallow bg-warning mr-3 center">Unbeantwortet</span>
+        }
+        else if (Model.Question.QuestionState == Question.State.Blocked)
+        {
+            <span class="badge shallow bg-danger mr-3 text-white">Zurückgezogen</span>
+        }
+
+        <button class="btn btn-secondary btn-sm collapsed" data-toggle="collapse" data-target="#question" aria-expanded="true">
+            <i class="fas fa-chevron-up" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div id="question" class="collapse">
+        <div class="card-body">
+            <h2>@Model.Question.Title</h2>
+            <hr />
+            @Html.Raw(Model.Question.QuestionHtml)
+        </div>
+    </div>
+</div>
+
+@if (Model.Question.QuestionState == Question.State.Answered)
+{
+    <div class="card border-secondary mb-3">
+        <div class="card-header d-flex align-content-center align-items-center">
+            <span class="flex-grow-1">Antwort</span>
+
+            <button class="btn btn-secondary btn-sm" data-toggle="collapse" data-target="#answer" aria-expanded="true">
+                <i class="fas fa-chevron-up" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div id="answer" class="collapse show">
+            <div class="card-body">
+                @Html.Raw(Model.Question.AnswerHtml)
+            </div>
+        </div>
+    </div>
+}
+
+
+<div id="sendMessage" class="card border-secondary mb-3 collapse">
+    <div class="card-header d-flex align-content-center align-items-center">
+        <span class="flex-grow-1">Nachricht senden</span>
+
+        <button class="btn btn-secondary btn-sm" data-toggle="collapse" data-target="#sendMessage" aria-expanded="true">
+            <i class="fas fa-chevron-up" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div id="answer" class="collapse show">
+        <div class="card-body">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Input.Title"></label>
+                    <input asp-for="Input.Title" class="form-control" />
+                    <span asp-validation-for="Input.Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Input.Message"></label>
+                    <textarea asp-for="Input.Message" id="mde"> </textarea>
+                    <span asp-validation-for="Input.Message" class="text-danger"></span>
+                </div>
+                @if (!Model.IsAdmin)
+                {
+                    <div class="form-group">
+                        <div class="g-recaptcha" data-sitekey="@Model.SiteKey"></div>
+                    </div>
+                }
+                @if (Model.Question.QuestionState != Question.State.Blocked)
+                {
+                    <button type="submit" class="btn btn-primary">Nachricht senden</button>
+                }
+            </form>
+        </div>
+    </div>
+</div>
+
+@{
+    bool showMessages = (Model.Messages?.Count ?? 0) != 0 && Model.Question.QuestionState != Question.State.Answered;
+}
+
+<div class="card border-secondary mb-3">
+    <div class="card-header d-flex align-content-center align-items-center">
+
+        <span class="flex-grow-1">Nachrichten</span>
+
+        <span class="badge shallow bg-dark mr-3 d-block text-light">@Model.Messages.Count @(Model.Messages.Count == 1 ? "Nachricht" : "Nachrichten")</span>
+
+        <button class="btn btn-secondary btn-sm @(showMessages ? "" : "collapsed")" data-toggle="collapse" data-target="#messages" aria-expanded="true">
+            <i class="fas fa-chevron-up" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div id="messages" class="collapse @(showMessages ? "show" : "")">
+        <div class="card-body d-flex flex-column align-items-center p-2">
+            @if (Model.Messages.Count == 0)
+            {
+                <p>Keine Nachrichten.</p>
+            }
+            @{ bool first = true;}
+            @foreach (var message in Model.Messages.OrderByDescending(m => m.Date))
+            {
+                <div class="w-100">
+                    <div class="card mb-3">
+                        <div class="card-header d-flex align-content-center align-items-center">
+                            <span class="flex-grow-1">@message.MessageTitle</span>
+
+
+                            @if (first)
+                            {
+                                <span class="badge shallow bg-primary mr-1 d-block text-white">Neuste</span>
+                            }
+                            @if (message.MessageAuthor == Message.Author.Answerer)
+                            {
+                                <span class="badge shallow bg-@(Model.IsAdmin ? "info" : "success") mr-3 d-block text-white">Von Finn</span>
+                            }
+                            else if (!Model.IsAdmin)
+                            {
+                                <span class="badge shallow bg-info mr-3 d-block text-white">Von Dir</span>
+                            }
+                            else
+                            {
+                                <span class="badge shallow bg-success mr-3 d-block text-white">Vom User</span>
+                            }
+                            <button class="btn btn-secondary btn-sm @(first ? "" : "collapsed")" data-toggle="collapse" data-target="#m-@message.Id" aria-expanded="true">
+                                <i class="fas fa-chevron-up" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div id="m-@message.Id" class="collapse @(first ? "show" : "")">
+                            <div class="card-body">
+                                @Html.Raw(message.MessageHtml)
+                            </div>
+                            <div class="card-footer text-muted text-center">
+                                Am @message.Date.ToString("dd.MM.yyyy") um @message.Date.ToString("H:mm") Uhr
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                first = false;
+            }
+
+            @if (Model.Question.QuestionState != Question.State.Blocked)
+            {
+                <button class="btn btn-primary btn-sm collapsed mb-3 d-block" data-toggle="collapse" data-target="#sendMessage" aria-expanded="true">
+                    Neue Nachricht senden
+                </button>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+@if (Model.IsAdmin)
+{
+    @if (Model.Question.QuestionState != Question.State.Answered)
+    {
+        <a asp-page="/Status/Block" asp-route-id="@Model.Question.Identifier" asp-route-state="1" class="btn btn-primary">
+            Frage answered
+            @if (string.IsNullOrWhiteSpace(Model.Question.AnswerHtml))
+            {
+                <span>- böse</span>
+            }
+        </a>
+    }
+    @if (Model.Question.QuestionState != Question.State.Asked)
+    {
+        <a asp-page="/Status/Block" asp-route-id="@Model.Question.Identifier" asp-route-state="0" class="btn btn-primary">Frage asked</a>
+    }
+}
+
+@if (Model.Question.QuestionState != Question.State.Blocked)
+{
+    <a asp-page="/Status/Block" asp-route-id="@Model.Question.Identifier" class="btn btn-danger">Frage zurückziehen</a>
+}
+<a asp-page="/Status/Delete" asp-route-id="@Model.Question.Identifier" class="btn btn-danger">Frage löschen</a>
+
+
+@section Scripts
+{
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="~/lib/simplemde/simplemde.min.js"></script>
+    <script src="~/lib/highlight.js/highlight.min.js"></script>
+    <script src="~/js/Highlight.js"></script>
+    <script src="~/js/Index.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+}
+@section Css
+{
+    <link rel="stylesheet" href="~/lib/simplemde/simplemde.min.css">
+    <link rel="stylesheet" href="~/lib/highlight.js/styles/default.min.css">
+    <link rel="stylesheet" href="~/css/Index.css">
+}

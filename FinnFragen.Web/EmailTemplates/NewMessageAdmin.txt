@@ -1,0 +1,10 @@
+﻿Neue Nachricht von "{{question.name}}" zur Frage "{{question.title}}" | ID{{question.identifier}}
+-Message-
+## Neue Nachricht von "{{question.name}}""
+
+[Status](https://finnfragen.de/Status/Status/{{question.identifier}})
+
+Title: {{message_title}}
+
+----
+@Content@

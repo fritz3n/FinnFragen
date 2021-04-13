@@ -1,0 +1,19 @@
+﻿@page "{id}"
+@model FinnFragen.Web.Pages.Status.BlockModel
+@{
+    ViewData["Title"] = "Frage zurückziehen";
+}
+
+<form method="post">
+    <h1 class="text-center">Frage zurückziehen</h1>
+    <hr />
+    <p>
+        Bist du sicher, dass du Frage zurückziehen willst? Du kannst den Prozess nicht rückgängig machen.
+        Zu einer zurückgezogenen Frage kannst du keine Nachrichten mehr senden und die Frage ist nichtmehr öffentlich einsehbar.
+        Der Prozess kann jederzeit von Finn rückgängig gemacht werden. Wenn du das verhindern möchtest, ziehe in Betracht deine Frage zu <a asp-page="/Status/Delete" asp-route-id="@Model.Question.Identifier">löschen</a>.
+    </p>
+
+
+    <button type="submit" class="btn btn-danger">Frage endgültig zurückziehen</button>
+</form>
+

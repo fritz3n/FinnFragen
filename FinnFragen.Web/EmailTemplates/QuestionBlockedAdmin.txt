@@ -1,0 +1,6 @@
+﻿"{{name}}" hat die Frage "{{title}}" blockiert. | ID{{identifier}}
+-Message-
+
+### {{name}} hat die Frage {{title}} blockiert.
+
+[Status](https://finnfragen.de/Status/Status/{{identifier}})

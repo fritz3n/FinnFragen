@@ -1,0 +1,6 @@
+﻿Deine Frage "{{title}}" wurde blockiert | ID{{identifier}}
+-Message-
+## Deine Frage "{{title}}" wurde blockiert!
+
+Finn hat dafür keinen Grund angegeben. Bitte frage die Frage nicht noch einmal.  
+Du kannst auf diese Email nicht antworten und die Blockierung wird nicht wieder aufgehoben.

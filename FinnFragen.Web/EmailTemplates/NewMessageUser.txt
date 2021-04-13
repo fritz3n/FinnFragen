@@ -1,0 +1,14 @@
+﻿Neue Nachricht von Finn zur Frage "{{question.title}}" | ID{{question.identifier}}
+-Message-
+-=-=-=-=-=-
+## Hallo {{question.name}}
+Finn hat eine Nachricht zu deiner Frage "{{question.title}}" geschrieben. Antworte einfach auf diese Email mit `ID{{question.identifier}}` im Betreff, um auf die Nachricht zu antworten.  
+Wenn du diese Emails nichtmehr bekommen möchtest, kannst du deine Frage unter [finnfragen.de/Status/Delete/{{question.identifier}}](https://finnfragen.de/Status/Delete/{{identifier}}) löschen.  
+Den Status deiner Frage kannst du jederzeit unter [finnfragen.de/Status/Status/{{question.identifier}}](https://finnfragen.de/Status/Status/{{identifier}}) einsehen.
+
+### Finns Nachricht:
+
+#### Titel: {{title}}
+
+----
+@Content@

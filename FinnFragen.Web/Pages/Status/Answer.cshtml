@@ -1,0 +1,62 @@
+﻿@page "{id}"
+@model FinnFragen.Web.Pages.Status.AnswerModel
+@{
+    ViewData["Title"] = "Frage beantworten";
+}
+
+
+<div class="card border-secondary mb-3">
+    <div class="card-header d-flex align-content-center align-items-center">
+        <span class="flex-grow-1">Frage</span>
+        <button class="btn btn-secondary btn-sm collapsed" data-toggle="collapse" data-target="#question" aria-expanded="true">
+            <i class="fas fa-chevron-up" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div id="question" class="collapse">
+        <div class="card-body">
+            <h2>@Model.Question.Title</h2>
+            <hr />
+            @Html.Raw(Model.Question.QuestionHtml)
+        </div>
+    </div>
+</div>
+
+<div id="answer" class="card border-secondary mb-3">
+    <div class="card-header d-flex align-content-center align-items-center">
+        <span class="flex-grow-1">Frage beantworten</span>
+
+        <button class="btn btn-secondary btn-sm" data-toggle="collapse" data-target="#answer" aria-expanded="true">
+            <i class="fas fa-chevron-up" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div id="answer" class="collapse show">
+        <div class="card-body">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                <div class="form-group">
+                    <label asp-for="Input.Message"></label>
+                    <textarea asp-for="Input.Message" id="mde"> </textarea>
+                    <span asp-validation-for="Input.Message" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Beantworten</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="~/lib/simplemde/simplemde.min.js"></script>
+    <script src="~/js/Index.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+}
+@section Css
+{
+    <link rel="stylesheet" href="~/lib/simplemde/simplemde.min.css">
+    <link rel="stylesheet" href="~/css/Index.css">
+}

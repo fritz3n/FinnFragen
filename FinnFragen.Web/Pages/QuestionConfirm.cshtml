@@ -1,0 +1,33 @@
+﻿@page
+@model FinnFragen.Web.Pages.QuestionConfirmModel
+@{
+    ViewData["Title"] = "Danke!";
+}
+
+<h1>Danke für die Frage!</h1>
+
+<p class="text-muted">
+    Deine Frage hat die ID <code>@Model.ID</code>
+
+    @if (!Model.Email) {
+        <span>Schreib sie dir auf, um den Status deiner Frage abzufragen.</span>
+    }
+</p>
+
+<p>Finn bearbeitet soeben deine Frage.</p>
+@if (Model.Email)
+{
+    <p>Du bekommst eine Email, wenn deine Frage beantwortet wurde oder Finn noch weitere Fragen an dich hat.</p>
+    <p>Ansonsten kannst du den Status unter <a asp-page="/Status/Status" asp-route-id="@Model.ID">Status</a> mit deiner ID abfragen.</p>
+}
+else
+{
+    <p>Bitte überprüfe den Status deiner Frage regelmäßig unter <a asp-page="/Status/Status" asp-route-id="@Model.ID">Status</a> um über eventuelle Rückfragen benachrichtigt zu werden.</p>
+}
+
+
+
+@section Scripts
+{
+    <script src="~/js/Confirm.js"></script>
+}

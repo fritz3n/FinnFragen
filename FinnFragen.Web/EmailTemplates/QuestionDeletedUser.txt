@@ -1,0 +1,10 @@
+﻿Deine Frage "{{title}}" wurde gelöscht | ID{{identifier}}
+-Message-
+## Deine Frage "{{title}}" wurde gelöscht!
+
+Du kannst auf diese Email nicht antworten und die Frage kann nicht wieder hergestellt werden.
+
+Deine Frage lautete:
+
+---
+@Content@

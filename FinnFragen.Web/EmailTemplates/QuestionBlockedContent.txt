@@ -1,0 +1,11 @@
+﻿Deine Frage "{{question.title}}" wurde blockiert | ID{{question.identifier}}
+-Message-
+## Deine Frage "{{question.title}}" wurde blockiert!
+
+Du kannst auf diese Email nicht antworten und die Blockierung wird nicht wieder aufgehoben.
+Bitte frage die Frage nicht noch einmal ohne Finns Hinweise zu beachten.
+
+Begründung:
+
+---
+@Content@

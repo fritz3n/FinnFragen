@@ -1,0 +1,12 @@
+﻿Deine Frage wurde beantwortet! | ID{{identifier}}
+-Message-
+
+## Hallo {{name}}
+Finn hat soeben deine Frag mit dem Titel "{{title}}" beantwortet. Falls du noch Fragen hast, kannst du gerne auf diese Email mit `ID{{identifier}}` im Betreff antworten.
+Wenn du diese Emails nichtmehr bekommen möchtest, kannst du deine Frage unter [https://finnfragen.de/Status/Delete/{{identifier}}](https://finnfragen.de/Status/Delete/{{identifier}}) löschen.
+
+
+### Finns Antwort:
+
+----
+@Content@
