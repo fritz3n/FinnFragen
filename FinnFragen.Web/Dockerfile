@@ -2,15 +2,16 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
+RUN dotnet tool install -g Microsoft.Web.LibraryManager.Cli
+ENV PATH="$PATH:/root/.dotnet/tools"
 COPY ["FinnFragen.Web/FinnFragen.Web.csproj", "FinnFragen.Web/"]
 RUN dotnet restore "FinnFragen.Web/FinnFragen.Web.csproj"
 COPY . .
 WORKDIR "/src/FinnFragen.Web"
+RUN libman restore
 RUN dotnet build "FinnFragen.Web.csproj" -c Release -o /app/build
 
 FROM build AS publish
