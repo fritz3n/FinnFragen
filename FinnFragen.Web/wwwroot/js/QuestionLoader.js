@@ -58,7 +58,8 @@ function escapeHtml(unsafe) {
 
     $('#tags').tagsinput({
         confirmKeys: [13, 44, 32, 188],
-        trimValue: true
+        trimValue: true,
+        tagClass: 'badge bg-primary'
     });
     if (browserUrl.searchParams.get("tags"))
         browserUrl.searchParams.get("tags").split(",").forEach(t => $('#tags').tagsinput('add', t))
@@ -71,6 +72,14 @@ function escapeHtml(unsafe) {
     searchIn.oninput = () => onChange(false);
     let searchForm = document.getElementById("searchForm");
     searchForm.onsubmit = e => { e.preventDefault(); onChange(true) };
+
+
+    if (browserUrl.searchParams.get("page")) {
+        initPageination(
+            browserUrl.searchParams.get("page"),
+            browserUrl.searchParams.get("count")
+        );
+    }
 
     let timer = -1;
 
@@ -116,16 +125,22 @@ function escapeHtml(unsafe) {
         let pagination = getPageination();
         if (pagination != null) {
             if (url.indexOf("?") >= 0) {
-                url += "&" + pagination;
+                url += "&" + pagination.url;
             } else {
-                url += "?" + pagination;
+                url += "?" + pagination.url;
             }
+            browserUrl.searchParams.set("page", pagination.page);
+            browserUrl.searchParams.set("count", pagination.count);
+        } else {
+            browserUrl.searchParams.delete("page");
+            browserUrl.searchParams.delete("count");
         }
 
         if (setHistory) {
             let state = {
                 tags: tags,
-                search: search
+                search: search,
+                pagination: pagination
             };
 
             history.pushState(state, "Search - " + search + " - " + tags, browserUrl.href);
@@ -140,6 +155,8 @@ function escapeHtml(unsafe) {
     loadFor(browserUrl.searchParams.get("tags"), browserUrl.searchParams.get("search"));
 
     window.onpopstate = (e) => {
+        if (e.state.pagination)
+            initPageination(e.state.pagination.page, e.state.pagination.count)
         loadFor(e.state.tags, e.state.search, false);
     }
 

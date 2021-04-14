@@ -32,6 +32,7 @@
     });
     $('#tags').tagsinput({
         confirmKeys: [13, 44, 32, 188],
-        trimValue: true
+        trimValue: true,
+        tagClass: 'badge bg-primary'
     });
 })();

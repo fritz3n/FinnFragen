@@ -49,7 +49,7 @@ namespace FinnFragen.Web.Pages
 			[Display(Name = "Deine Frage")]
 			public string Question { get; set; }
 			[EmailAddress(ErrorMessage = "Bitte gebe eine valide Emailadresse ein.")]
-			[Display(Name = "Deine Emailadresse für Rückfragen/Benachrichtigungen (Optional)")]
+			[Display(Name = "Emailadresse für Rückfragen/Benachrichtigungen (Optional)")]
 			public string Email { get; set; }
 
 			[Required(ErrorMessage = "Bitte gib mindestens einen Tag ein. (e.g. C#, Java oder Mathe)")]

@@ -1,5 +1,6 @@
 ﻿let onChange;
 let getPageination;
+let initPageination;
 let updateTotalCount = () => { };
 
 let testPagination;
@@ -113,6 +114,8 @@ let testPagination;
         let option = document.createElement("option");
         option.value = 10;
         option.text = "10 pro Seite";
+        if (option.value == resultCount)
+            option.selected = "selected";
         select.appendChild(option);
 
         for (let i = 0; i < counts.length; i++) {
@@ -123,18 +126,22 @@ let testPagination;
             let option = document.createElement("option");
             option.value = count;
             option.text = count + " pro Seite";
+            if (option.value == resultCount)
+                option.selected = "selected";
             select.appendChild(option);
         }
 
         option = document.createElement("option");
         option.value = -1;
         option.text = "Alle auf einer Seite";
+        if (option.value == resultCount)
+            option.selected = "selected";
         select.appendChild(option);
 
         select.onchange = changeCount;
 
         selectContainer.appendChild(select);
-        pagination.appendChild(newLI(selectContainer, "ml-2"));
+        pagination.appendChild(newLI(selectContainer, "ms-2"));
     }
 
 
@@ -158,23 +165,34 @@ let testPagination;
         }
     }
     function changeCount(obj) {
-        resultCount = obj.value == -1 ? Infinity : obj.value;
+        resultCount = this.value;
         doUpdate = true;
         onChange(true);
     }
 
+    initPageination = function (page, count) {
+        currentPage = page;
+        resultCount = count;
+    }
+
     getPageination = function () {
-        if (!resultCount || !isFinite(resultCount))
+        if (totalPageCount == 1 || resultCount == -1)
             return null;
 
-        return {}  //"from=" + (currentPage * resultCount) + "&take=" + resultCount;
-
+        return {
+            page: currentPage,
+            count: resultCount,
+            url: "from=" + (currentPage * resultCount) + "&take=" + resultCount
+        }
     };
 
     updateTotalCount = function (n) {
         let prev = totalCount;
         totalCount = n;
-        totalPageCount = Math.ceil(totalCount / resultCount);
+        if (resultCount == -1)
+            totalPageCount = 1;
+        else
+            totalPageCount = Math.ceil(totalCount / resultCount);
 
         if (prev != totalCount || doUpdate) {
             doUpdate = false;
