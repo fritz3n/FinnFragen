@@ -122,7 +122,7 @@ else if (Model.Question.QuestionState == Question.State.Blocked)
                 }
                 @if (Model.Question.QuestionState != Question.State.Blocked)
                 {
-                    <button type="submit" class="btn btn-primary">Nachricht senden</button>
+                    <button type="submit" class="btn btn-primary mt-2">Nachricht senden</button>
                 }
             </form>
         </div>
@@ -161,19 +161,19 @@ else if (Model.Question.QuestionState == Question.State.Blocked)
 
                             @if (first)
                             {
-                                <span class="badge shallow bg-primary mr-1 d-block text-white">Neuste</span>
+                                <span class="badge shallow bg-primary me-1 d-block text-white">Neuste</span>
                             }
                             @if (message.MessageAuthor == Message.Author.Answerer)
                             {
-                                <span class="badge shallow bg-@(Model.IsAdmin ? "info" : "success") mr-3 d-block text-white">Von Finn</span>
+                                <span class="badge shallow bg-@(Model.IsAdmin ? "info" : "success") me-3 d-block text-white">Von Finn</span>
                             }
                             else if (!Model.IsAdmin)
                             {
-                                <span class="badge shallow bg-info mr-3 d-block text-white">Von Dir</span>
+                                <span class="badge shallow bg-info me-3 d-block text-white">Von Dir</span>
                             }
                             else
                             {
-                                <span class="badge shallow bg-success mr-3 d-block text-white">Vom User</span>
+                                <span class="badge shallow bg-success me-3 d-block text-white">Vom User</span>
                             }
                             <button class="btn btn-secondary btn-sm @(first ? "" : "collapsed")" data-bs-toggle="collapse" data-bs-target="#m-@message.Id" aria-expanded="true">
                                 <i class="fas fa-chevron-up" aria-hidden="true"></i>

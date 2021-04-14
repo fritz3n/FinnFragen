@@ -26,7 +26,7 @@ namespace FinnFragen.Web.Data
 		{
 			base.OnModelCreating(builder);
 
-			builder.Entity<Question>().HasMany(q => q.Messages).WithOne(m => m.Question);
+			builder.Entity<Question>().HasMany(q => q.Messages).WithOne(m => m.Question).OnDelete(DeleteBehavior.Cascade);
 		}
 
 		public static async Task Initialize(IServiceProvider serviceProvider)
