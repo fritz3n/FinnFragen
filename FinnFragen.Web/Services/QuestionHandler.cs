@@ -61,14 +61,15 @@ namespace FinnFragen.Web.Services
 
 			string html = Markdown.ToHtml(markdown, markdownPipeline);
 			string text = Markdown.ToPlainText(markdown, markdownPipeline);
-			return AnswerQuestion(question, text, html, db);
+			return AnswerQuestion(question, text, html, db, markdown);
 		}
 
-		public async Task AnswerQuestion(Question question, string text, string html, Database db = null)
+		public async Task AnswerQuestion(Question question, string text, string html, Database db = null, string source = null)
 		{
 			html ??= text;
 			db ??= database;
 
+			question.AnswerSource = source;
 			question.AnswerText = text;
 			question.AnswerHtml = html;
 

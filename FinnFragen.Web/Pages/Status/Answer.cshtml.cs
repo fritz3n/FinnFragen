@@ -44,6 +44,11 @@ namespace FinnFragen.Web.Pages.Status
 			if (Question is null)
 				return NotFound();
 
+			Input = new MessageModel()
+			{
+				Message = Question.AnswerSource
+			};
+
 			return Page();
 		}
 
