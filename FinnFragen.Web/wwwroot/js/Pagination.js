@@ -1,6 +1,7 @@
 ﻿let onChange;
 let getPageination;
 let initPageination;
+let removePagination;
 let updateTotalCount = () => { };
 
 let testPagination;
@@ -14,6 +15,10 @@ let testPagination;
     let doUpdate = false;
 
     let pagination = document.getElementById("pagination");
+
+    removePagination = function () {
+        pagination.innerHTML = "";
+    }
 
     function setHtml() {
         function newLI(content, ...classes) {
@@ -43,9 +48,7 @@ let testPagination;
             return newLI(button, ...classes);
         }
 
-        pagination.innerHTML = "";
-
-
+        removePagination();
 
         let frontgap = currentPage;
         let backgap = totalPageCount - currentPage -1;
@@ -120,7 +123,7 @@ let testPagination;
 
         for (let i = 0; i < counts.length; i++) {
             let count = counts[i];
-            if (totalPageCount < count)
+            if (totalCount < count)
                 break;
 
             let option = document.createElement("option");
@@ -152,7 +155,7 @@ let testPagination;
     }
     function clickNext() {
         if (currentPage != totalPageCount - 1)
-            currentPage--;
+            currentPage++;
         onChange(true);
     }
     function clickPage() {
@@ -160,29 +163,33 @@ let testPagination;
         if (!page)
             return;
         if (page >= 0 && page < totalPageCount && page != currentPage) {
-            currentPage = page;
+            currentPage = parseInt(page);
             onChange(true);
         }
     }
     function changeCount(obj) {
         resultCount = this.value;
-        doUpdate = true;
         onChange(true);
     }
 
     initPageination = function (page, count) {
-        currentPage = page;
-        resultCount = count;
+        currentPage = parseInt(page);
+        if (currentPage < 0)
+            currentPage = 0;
+        resultCount = parseInt(count);
     }
 
     getPageination = function () {
-        if (totalPageCount == 1 || resultCount == -1)
-            return null;
+        let url;
+        if (resultCount == -1)
+            url = null;
+        else
+            url = "from=" + (currentPage * resultCount) + "&take=" + resultCount
 
         return {
             page: currentPage,
             count: resultCount,
-            url: "from=" + (currentPage * resultCount) + "&take=" + resultCount
+            url: url
         }
     };
 
@@ -194,10 +201,7 @@ let testPagination;
         else
             totalPageCount = Math.ceil(totalCount / resultCount);
 
-        if (prev != totalCount || doUpdate) {
-            doUpdate = false;
-            setHtml();
-        }
+        setHtml();
     };
 
     testPagination = function (current = null, total = null) {

@@ -1,7 +1,7 @@
 ﻿@page "{name}"
 @model FinnFragen.Web.Pages.Questions.QuestionModel
 @{
-    ViewData["Title"] = Model.Question.Name;
+    ViewData["Title"] = Model.Question.Title;
 }
 
 <div class="card border-secondary mb-3">
@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div class="card border-secondary mb-3">
+<div class="card border-success mb-3">
     <div class="card-header d-flex align-content-center align-items-center">
         <span class="flex-grow-1">Antwort</span>
 

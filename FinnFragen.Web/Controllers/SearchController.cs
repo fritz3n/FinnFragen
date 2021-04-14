@@ -29,13 +29,11 @@ namespace FinnFragen.Web.Controllers
 
 			IQueryable<Question> query = database.Questions;
 			if (!isAdmin || !all)
-				query = query.Where(q => q.QuestionState == Question.State.Answered);
+				query = query.Where(q => q.QuestionState == Question.State.Answered).OrderByDescending(q => q.AnswerDate);
 			int totalCount = await query.CountAsync();
 			if (pageAfter == false)
 				query = query.Skip((int)from).Take((int)take);
 
-			if (!isAdmin || !all)
-				query = query.OrderByDescending(q => q.AnswerDate);
 
 			IEnumerable<QuestionModel> models = (await query.ToListAsync())
 							  .Select(q => new QuestionModel(q, isAdmin));
@@ -64,8 +62,7 @@ namespace FinnFragen.Web.Controllers
 			IQueryable<Question> query = database.Questions;
 
 			if (!isAdmin || !all)
-				query = query.Where(q => q.QuestionState == Question.State.Answered);
-			int totalCount = await query.CountAsync();
+				query = query.Where(q => q.QuestionState == Question.State.Answered).OrderByDescending(q => q.AnswerDate);
 			if (pageAfter == false)
 				query = query.Skip((int)from).Take((int)take);
 
@@ -79,8 +76,6 @@ namespace FinnFragen.Web.Controllers
 				query = query.Where(q => EF.Functions.FreeText(q.Title, search) || EF.Functions.FreeText(q.QuestionText, search) || EF.Functions.FreeText(q.AnswerText, search));
 			}
 
-			if (!isAdmin || !all)
-				query = query.OrderByDescending(q => q.AnswerDate);
 
 			IEnumerable<QuestionModel> models = (await query.ToListAsync())
 							  .Select(q => new QuestionModel(q, isAdmin));
@@ -97,6 +92,7 @@ namespace FinnFragen.Web.Controllers
 
 				models = models.Where(m => tagList.All(t => m.Tags.Select(s => s.ToLower()).Contains(t)));
 			}
+			int totalCount = models.Count();
 
 			if (pageAfter == true)
 				models = models.Skip((int)from).Take((int)take);

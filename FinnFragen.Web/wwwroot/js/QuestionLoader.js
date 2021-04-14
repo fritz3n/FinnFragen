@@ -38,6 +38,7 @@ function escapeHtml(unsafe) {
 
         if (!isResolved) {
             slow = true;
+            removePagination();
             container.classList.remove("loaded");
             container.classList.add("loading");
             //list.innerHTML = getPlaceholder();
@@ -124,10 +125,12 @@ function escapeHtml(unsafe) {
 
         let pagination = getPageination();
         if (pagination != null) {
-            if (url.indexOf("?") >= 0) {
-                url += "&" + pagination.url;
-            } else {
-                url += "?" + pagination.url;
+            if (pagination.url != null) {
+                if (url.indexOf("?") >= 0) {
+                    url += "&" + pagination.url;
+                } else {
+                    url += "?" + pagination.url;
+                }
             }
             browserUrl.searchParams.set("page", pagination.page);
             browserUrl.searchParams.set("count", pagination.count);
