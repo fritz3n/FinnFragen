@@ -165,15 +165,15 @@ else if (Model.Question.QuestionState == Question.State.Blocked)
                             }
                             @if (message.MessageAuthor == Message.Author.Answerer)
                             {
-                                <span class="badge shallow bg-@(Model.IsAdmin ? "info" : "success") me-3 d-block text-white">Von Finn</span>
+                                <span class="badge shallow bg-@(Model.IsAdmin ? "info" : "success") me-1 d-block text-white">Von Finn</span>
                             }
                             else if (!Model.IsAdmin)
                             {
-                                <span class="badge shallow bg-info me-3 d-block text-white">Von Dir</span>
+                                <span class="badge shallow bg-info me-1 d-block text-white">Von Dir</span>
                             }
                             else
                             {
-                                <span class="badge shallow bg-success me-3 d-block text-white">Vom User</span>
+                                <span class="badge shallow bg-success me-1 d-block text-white">Vom User</span>
                             }
                             <button class="btn btn-secondary btn-sm @(first ? "" : "collapsed")" data-bs-toggle="collapse" data-bs-target="#m-@message.Id" aria-expanded="true">
                                 <i class="fas fa-chevron-up" aria-hidden="true"></i>
