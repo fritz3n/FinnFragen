@@ -138,7 +138,7 @@ else if (Model.Question.QuestionState == Question.State.Blocked)
 
         <span class="flex-grow-1">Nachrichten</span>
 
-        <span class="badge shallow bg-dark mr-3 d-block text-light">@Model.Messages.Count @(Model.Messages.Count == 1 ? "Nachricht" : "Nachrichten")</span>
+        <span class="badge shallow bg-dark d-block text-light">@Model.Messages.Count @(Model.Messages.Count == 1 ? "Nachricht" : "Nachrichten")</span>
 
         <button class="btn btn-secondary btn-sm ms-1 @(showMessages ? "" : "collapsed")" data-bs-toggle="collapse" data-bs-target="#messages" aria-expanded="true">
             <i class="fas fa-chevron-up" aria-hidden="true"></i>
