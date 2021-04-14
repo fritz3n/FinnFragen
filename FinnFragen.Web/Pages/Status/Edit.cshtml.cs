@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace FinnFragen.Web.Pages.Status
 {
-	public class AnswerModel : PageModel
+	public class EditModel : PageModel
 	{
 		private readonly QuestionHandler questionHandler;
 
-		public AnswerModel(QuestionHandler questionHandler)
+		public EditModel(QuestionHandler questionHandler)
 		{
 			this.questionHandler = questionHandler;
 		}
@@ -26,8 +26,11 @@ namespace FinnFragen.Web.Pages.Status
 
 		public class MessageModel
 		{
-			[Required(ErrorMessage = "Bitte gib deine Antwort ein.")]
-			[Display(Name = "Antwort")]
+			[Required(ErrorMessage = "Bitte gib deinen Titel ein.")]
+			[Display(Name = "Titel")]
+			public string Title { get; set; }
+			[Required(ErrorMessage = "Bitte gib die Frage ein.")]
+			[Display(Name = "Frage")]
 			public string Message { get; set; }
 		}
 
@@ -43,6 +46,12 @@ namespace FinnFragen.Web.Pages.Status
 
 			if (Question is null)
 				return NotFound();
+
+			Input = new()
+			{
+				Message = Question.QuestionSource,
+				Title = Question.Title
+			};
 
 			return Page();
 		}
@@ -63,7 +72,7 @@ namespace FinnFragen.Web.Pages.Status
 			if (!ModelState.IsValid)
 				return Page();
 
-			await questionHandler.AnswerQuestionMarkdown(Question, Input.Message);
+			await questionHandler.EditQuestion(Question, Input.Title, Input.Message);
 
 			return Redirect(ret ?? ("/Status/Status/" + id));
 		}

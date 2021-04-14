@@ -84,12 +84,13 @@ namespace FinnFragen.Web.Pages
 			if (!ModelState.IsValid)
 				return Page();
 
+#if !DEBUG
 			if (!await validator.Validate())
 			{
 				ModelState.AddModelError(string.Empty, "Recaptcha nicht valide");
 				return Page();
 			}
-
+#endif
 			if (!Input.Consent)
 			{
 				ModelState.AddModelError(string.Empty, "Bitte stimme der Veröffentlichung deiner Frage zu.");
@@ -142,6 +143,7 @@ namespace FinnFragen.Web.Pages
 				Email = Input.Email,
 				QuestionHtml = html,
 				QuestionText = text,
+				QuestionSource = Input.Question,
 				QuestionDate = DateTime.Now,
 				Identifier = id,
 				QuestionState = Question.State.Asked,

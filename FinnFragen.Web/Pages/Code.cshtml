@@ -1,0 +1,16 @@
+﻿@page
+@model FinnFragen.Web.Pages.CodeModel
+@{
+    ViewData["Title"] = "Nicht gefunden";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Diese Seite wurde nicht gefunden</h1>
+
+    <h3>Wenn du nach einer Frage suchst wurde sie womöglich gelöscht oder zurückgezogen.</h3>
+
+    <div class="mt-3">
+        <a asp-page="/Ask" class="btn btn-primary btn-lg">Eine Frage an Finn stellen</a>
+        <a asp-page="/Questions/Index" class="btn btn-primary btn-lg">Alle Fragen anzeigen</a>
+    </div>
+</div>

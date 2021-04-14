@@ -90,11 +90,13 @@ namespace FinnFragen.Web.Pages.Status
 			if (!ModelState.IsValid)
 				return Page();
 
+#if !DEBUG
 			if (!IsAdmin && !await validator.Validate())
 			{
 				ModelState.AddModelError(string.Empty, "Recaptcha nicht valide");
 				return Page();
 			}
+#endif
 
 			await questionHandler.SendMessageMarkdown(Question, Input.Title, Input.Message, IsAdmin ? Message.Author.Answerer : Message.Author.Asker);
 

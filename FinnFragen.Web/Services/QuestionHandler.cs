@@ -124,6 +124,21 @@ namespace FinnFragen.Web.Services
 				notificationBuilder.PushForQuestion("QuestionDeletedUser", question, false, byUser);
 		}
 
+		public async Task EditQuestion(Question question, string title, string markdown, Database db = null)
+		{
+			db ??= database;
+
+
+			string html = Markdown.ToHtml(markdown, markdownPipeline);
+			html = sanitizer.Sanitize(html);
+			string text = Markdown.ToPlainText(markdown, markdownPipeline);
+
+			question.Title = title;
+			question.QuestionHtml = html;
+			question.QuestionText = text;
+			await db.SaveChangesAsync();
+		}
+
 		public Task<Question> QuestionFromId(string id)
 		{
 			return database.Questions.FirstOrDefaultAsync(q => q.Identifier == id);

@@ -91,6 +91,8 @@ namespace FinnFragen.Web
 				app.UseHsts();
 			}
 
+			app.UseStatusCodePagesWithReExecute("/Code", "?code={0}");
+
 			app.UseStaticFiles();
 
 			app.UseRouting();

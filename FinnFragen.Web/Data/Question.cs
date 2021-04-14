@@ -13,6 +13,7 @@ namespace FinnFragen.Web.Data
 		public string Title { get; set; }
 		public string QuestionHtml { get; set; }
 		public string QuestionText { get; set; }
+		public string QuestionSource { get; set; }
 		public string AnswerHtml { get; set; }
 		public string AnswerText { get; set; }
 
