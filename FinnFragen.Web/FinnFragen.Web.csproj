@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="HADotNet.Core" Version="1.5.1" />
     <PackageReference Include="HtmlSanitizer" Version="5.0.376" />
     <PackageReference Include="MailKit" Version="2.11.1" />
     <PackageReference Include="Markdig" Version="0.24.0" />

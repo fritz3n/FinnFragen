@@ -20,6 +20,7 @@ namespace FinnFragen.Web.Pages
 	public class AskModel : PageModel
 	{
 		private readonly ILogger<AskModel> _logger;
+		private readonly HomeAssistantService homeAssistant;
 		private readonly NotificationBuilder notificationBuilder;
 		private readonly HtmlSanitizer sanitizer;
 		private readonly IConfiguration configuration;
@@ -62,9 +63,10 @@ namespace FinnFragen.Web.Pages
 			public bool Consent { get; set; }
 		}
 
-		public AskModel(ILogger<AskModel> logger, NotificationBuilder notificationBuilder, HtmlSanitizer sanitizer, IConfiguration configuration, CaptchaValidator validator, MarkdownPipeline markdown, Database database)
+		public AskModel(ILogger<AskModel> logger, HomeAssistantService homeAssistant, NotificationBuilder notificationBuilder, HtmlSanitizer sanitizer, IConfiguration configuration, CaptchaValidator validator, MarkdownPipeline markdown, Database database)
 		{
 			_logger = logger;
+			this.homeAssistant = homeAssistant;
 			this.notificationBuilder = notificationBuilder;
 			this.sanitizer = sanitizer;
 			this.configuration = configuration;
@@ -158,6 +160,8 @@ namespace FinnFragen.Web.Pages
 			}
 
 			notificationBuilder.PushForQuestion("NewQuestionAdmin", question, false, true);
+
+			homeAssistant.NotifyForQuestion(question);
 
 			return Redirect($"/QuestionConfirm?id={id}&email={!string.IsNullOrWhiteSpace(Input.Email)}" + (Input.SaveId ? $"&save=1&name=" + HttpUtility.UrlEncode(Input.Title) : ""));
 		}

@@ -72,6 +72,7 @@ namespace FinnFragen.Web
 
 			services.AddSingleton<NotifyQueue>();
 			services.AddSingleton<NotificationBuilder>();
+			services.AddSingleton<HomeAssistantService>();
 			services.AddHostedService<NotifyService>();
 			services.AddHostedService<ImapService>();
 		}
