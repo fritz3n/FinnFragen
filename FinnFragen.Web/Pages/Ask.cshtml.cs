@@ -125,12 +125,12 @@ namespace FinnFragen.Web.Pages
 
 			while (shortName.Length < minLength)
 			{
-				shortName += new Guid().ToString().Substring(0, minLength - shortName.Length);
+				shortName += "-" + Guid.NewGuid().ToString().Substring(0, minLength - shortName.Length);
 			}
 
 			while (await database.Questions.AnyAsync(q => q.ShortName == shortName))
 			{
-				shortName += "-" + new Guid().ToString().Substring(0, 6);
+				shortName += "-" + Guid.NewGuid().ToString().Substring(0, 6);
 			}
 
 			string id = await database.GetNewID();
