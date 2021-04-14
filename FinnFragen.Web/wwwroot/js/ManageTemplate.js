@@ -17,7 +17,7 @@ function htmlForQuestion(q) {
     });
 
     return `<li class="list-group-item d-flex flex-row flex-wrap">
-                    <div class="d-flex col-12 m-0 p-0">
+                    <div class="d-flex col-12 m-0 p-0 ms-3">
                         <div class="pl-3 flex-grow-1 mt-3">
                             <h5 class="d-inline w-auto">
                                 <a href="/Status/Status/${encodeURIComponent(q.restricted.id)}">${escapeHtml(q.title)}</a>
