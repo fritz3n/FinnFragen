@@ -35,3 +35,8 @@
         </div>
     </div>
 </div>
+
+@if (HttpContext.User.Identity.IsAuthenticated)
+{
+    <a asp-page="/Status/Status" asp-route-id="@Model.Question.Identifier" class="btn btn-primary mt-3">Zum Status</a>
+}
