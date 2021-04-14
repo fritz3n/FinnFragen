@@ -163,12 +163,14 @@ namespace FinnFragen.Web.Controllers
 							Restricted.LastAction = "Message by " + lastMessage.MessageAuthor.ToString();
 							Restricted.LastActionPrecedence = lastMessage.MessageAuthor == Message.Author.Asker ? 1 : 2;
 							Restricted.LastActionDate = lastMessage.Date;
+							Restricted.LastActionColor = lastMessage.MessageAuthor == Message.Author.Asker ? "success" : "info text-dark";
 						}
 						else
 						{
 							Restricted.LastAction = "Answered";
 							Restricted.LastActionPrecedence = 3;
 							Restricted.LastActionDate = question.AnswerDate;
+							Restricted.LastActionColor = "secondary";
 						}
 					}
 					else if (question.QuestionState == Question.State.Asked)
@@ -178,12 +180,14 @@ namespace FinnFragen.Web.Controllers
 							Restricted.LastAction = "Message by " + lastMessage.MessageAuthor.ToString();
 							Restricted.LastActionPrecedence = lastMessage.MessageAuthor == Message.Author.Asker ? 1 : 2;
 							Restricted.LastActionDate = lastMessage.Date;
+							Restricted.LastActionColor = lastMessage.MessageAuthor == Message.Author.Asker ? "success" : "info text-dark";
 						}
 						else
 						{
 							Restricted.LastAction = "Asked";
 							Restricted.LastActionPrecedence = 0;
 							Restricted.LastActionDate = question.QuestionDate;
+							Restricted.LastActionColor = "warning text-dark";
 						}
 					}
 					else
@@ -191,6 +195,7 @@ namespace FinnFragen.Web.Controllers
 						Restricted.LastAction = "Blocked";
 						Restricted.LastActionPrecedence = 4;
 						Restricted.LastActionDate = question.QuestionDate;
+						Restricted.LastActionColor = "danger";
 					}
 				}
 			}
@@ -217,6 +222,7 @@ namespace FinnFragen.Web.Controllers
 			public int LastActionPrecedence { get; set; }
 			public string LastAction { get; set; }
 			public DateTime LastActionDate { get; set; }
+			public string LastActionColor { get; set; }
 		}
 
 		public class ResultModel

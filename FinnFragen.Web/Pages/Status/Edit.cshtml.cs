@@ -32,6 +32,7 @@ namespace FinnFragen.Web.Pages.Status
 			[Required(ErrorMessage = "Bitte gib die Frage ein.")]
 			[Display(Name = "Frage")]
 			public string Message { get; set; }
+			public string Tags { get; set; }
 		}
 
 		public async Task<IActionResult> OnGetAsync(string id)
@@ -50,7 +51,8 @@ namespace FinnFragen.Web.Pages.Status
 			Input = new()
 			{
 				Message = Question.QuestionSource,
-				Title = Question.Title
+				Title = Question.Title,
+				Tags = Question.TagString
 			};
 
 			return Page();
@@ -71,6 +73,8 @@ namespace FinnFragen.Web.Pages.Status
 
 			if (!ModelState.IsValid)
 				return Page();
+
+			Question.TagString = Input.Tags;
 
 			await questionHandler.EditQuestion(Question, Input.Title, Input.Message);
 

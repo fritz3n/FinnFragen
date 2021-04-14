@@ -25,7 +25,7 @@ function htmlForQuestion(q) {
                             <a href="/Questions/Question/${encodeURIComponent(q.shortName)}"><i class="fas fa-external-link-alt"></i></a>
                         </div>
                         <div class="mt-3 px-2">
-                            <span class="badge bg-primary text-white">${q.restricted.lastAction}</span>
+                            <span class="badge bg-${q.restricted.lastActionColor}">${q.restricted.lastAction}</span>
                         </div>
                         <div class="d-inline pt-1">
                             <div class="btn-group btn-group-sm mt-2" role="group" aria-label="First group">

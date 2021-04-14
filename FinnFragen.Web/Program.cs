@@ -17,6 +17,7 @@ namespace FinnFragen.Web
 		public static async Task Main(string[] args)
 		{
 			IHost host = CreateHostBuilder(args).Build();
+#if !DEBUG
 			using (IServiceScope scope = host.Services.CreateScope())
 			{
 				Database db = scope.ServiceProvider.GetService<Database>();
@@ -25,6 +26,7 @@ namespace FinnFragen.Web
 
 				await Database.Initialize(scope.ServiceProvider);
 			}
+#endif
 			host.Run();
 		}
 
