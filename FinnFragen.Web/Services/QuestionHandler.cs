@@ -102,14 +102,14 @@ namespace FinnFragen.Web.Services
 		{
 			await BlockQuestion(question, false, db);
 
-			await SendMessage(question, "Nachricht blockiert", text, html, Message.Author.Answerer, "QuestionBlockedContent");
+			await SendMessage(question, "Frage blockiert", text, html, Message.Author.Answerer, "QuestionBlockedContent");
 		}
 
 		public async Task BlockQuestionContentMarkdown(Question question, string markdown, Database db = null)
 		{
 			await BlockQuestion(question, false, db);
 
-			await SendMessageMarkdown(question, "Nachricht blockiert", markdown, Message.Author.Answerer, false, "QuestionBlockedContent");
+			await SendMessageMarkdown(question, "Frage blockiert", markdown, Message.Author.Answerer, false, "QuestionBlockedContent");
 		}
 
 		public async Task DeleteQuestion(Question question, bool byUser = false, Database db = null)
