@@ -163,7 +163,7 @@ namespace FinnFragen.Web.Controllers
 							Restricted.LastAction = "Message by " + lastMessage.MessageAuthor.ToString();
 							Restricted.LastActionPrecedence = lastMessage.MessageAuthor == Message.Author.Asker ? 1 : 2;
 							Restricted.LastActionDate = lastMessage.Date;
-							Restricted.LastActionColor = lastMessage.MessageAuthor == Message.Author.Asker ? "success" : "info text-dark";
+							Restricted.LastActionColor = lastMessage.MessageAuthor == Message.Author.Asker ? "success" : "info text-white";
 						}
 						else
 						{
@@ -180,7 +180,7 @@ namespace FinnFragen.Web.Controllers
 							Restricted.LastAction = "Message by " + lastMessage.MessageAuthor.ToString();
 							Restricted.LastActionPrecedence = lastMessage.MessageAuthor == Message.Author.Asker ? 1 : 2;
 							Restricted.LastActionDate = lastMessage.Date;
-							Restricted.LastActionColor = lastMessage.MessageAuthor == Message.Author.Asker ? "success" : "info text-dark";
+							Restricted.LastActionColor = lastMessage.MessageAuthor == Message.Author.Asker ? "success" : "info text-white";
 						}
 						else
 						{
