@@ -148,8 +148,6 @@ namespace FinnFragen.Web.Controllers
 						Id = question.Identifier
 					};
 
-					Message lastMessage = question.Messages.OrderByDescending(m => m.Date).FirstOrDefault();
-
 					//0 Asked
 					//1 mes by asker
 					//2 mes by admin
@@ -158,23 +156,16 @@ namespace FinnFragen.Web.Controllers
 
 					if (question.QuestionState == Question.State.Answered)
 					{
-						if (lastMessage is not null && lastMessage.Date > question.AnswerDate)
-						{
-							Restricted.LastAction = "Message by " + lastMessage.MessageAuthor.ToString();
-							Restricted.LastActionPrecedence = lastMessage.MessageAuthor == Message.Author.Asker ? 1 : 2;
-							Restricted.LastActionDate = lastMessage.Date;
-							Restricted.LastActionColor = lastMessage.MessageAuthor == Message.Author.Asker ? "success" : "info text-white";
-						}
-						else
-						{
-							Restricted.LastAction = "Answered";
-							Restricted.LastActionPrecedence = 3;
-							Restricted.LastActionDate = question.AnswerDate;
-							Restricted.LastActionColor = "secondary";
-						}
+						Restricted.LastAction = "Answered";
+						Restricted.LastActionPrecedence = 3;
+						Restricted.LastActionDate = question.AnswerDate;
+						Restricted.LastActionColor = "secondary";
+
 					}
 					else if (question.QuestionState == Question.State.Asked)
 					{
+						Message lastMessage = question.Messages.OrderByDescending(m => m.Date).FirstOrDefault();
+
 						if (lastMessage is not null)
 						{
 							Restricted.LastAction = "Message by " + lastMessage.MessageAuthor.ToString();
