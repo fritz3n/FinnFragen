@@ -36,9 +36,8 @@ namespace FinnFragen.Web.Pages.Status
 
 		public class MessageModel
 		{
-			[Required(ErrorMessage = "Bitte gib einen Betreff ein.")]
 			[MinLength(5, ErrorMessage = "Betreff zu kurz.")]
-			[Display(Name = "Betreff")]
+			[Display(Name = "Betreff (Optional)")]
 			public string Title { get; set; }
 
 			[Required(ErrorMessage = "Bitte gib deine Nachricht ein.")]

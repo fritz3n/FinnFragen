@@ -43,7 +43,7 @@ namespace FinnFragen.Web.Services
 				MessageAuthor = author,
 				MessageHtml = html,
 				MessageText = text,
-				MessageTitle = title ?? "Nachricht von " + (author == Message.Author.Answerer ? "Finn" : question.Name),
+				MessageTitle = string.IsNullOrWhiteSpace(title) ? "Nachricht von " + (author == Message.Author.Answerer ? "Finn" : question.Name) : title,
 				Question = question
 			};
 
