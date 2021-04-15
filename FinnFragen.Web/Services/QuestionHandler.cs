@@ -131,12 +131,12 @@ namespace FinnFragen.Web.Services
 
 
 			string html = Markdown.ToHtml(markdown, markdownPipeline);
-			html = sanitizer.Sanitize(html);
 			string text = Markdown.ToPlainText(markdown, markdownPipeline);
 
 			question.Title = title;
 			question.QuestionHtml = html;
 			question.QuestionText = text;
+			question.QuestionSource = markdown;
 			await db.SaveChangesAsync();
 		}
 
