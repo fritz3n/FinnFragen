@@ -1,0 +1,12 @@
+﻿.placeholder-item::before {
+    background: linear-gradient(to right, transparent 0%, #666 50%, transparent 100%);
+}
+
+.placeholder-item {
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    background-color: #444;
+    color: #444;
+    user-select: none;
+}

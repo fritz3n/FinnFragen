@@ -1,19 +1,30 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    string theme = "auto";
+    if (Context.Request.Cookies.ContainsKey("theme"))
+    {
+        string cookie = Context.Request.Cookies["theme"];
+        theme = cookie == "dark" ? "dark" : cookie == "light" ? "light" : "auto";
+    }
+    bool? dark = theme == "auto" ? null : theme == "dark";   // dark and light effectively trinaries
+    bool? light = theme == "auto" ? null : theme == "light";
+    bool auto = theme == "auto";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - finnfragen</title>
-    <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
     <link href="/lib/font-awesome/css/all.min.css" rel="stylesheet">
     @await RenderSectionAsync("Css", required: false)
+    <link rel="stylesheet" href="~/css/theme.@(theme).css" id="css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index"><img src="~/assets/smalllogo-white.png" class="" alt="logo" height="30" /></a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index"><img id="logo" alt="logo" height="30" width="165" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,18 +32,28 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Ask">Neue Frage</a>
+                            <a class="nav-link" asp-area="" asp-page="/Ask">Neue Frage</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Questions/Index">Alle Fragen</a>
+                            <a class="nav-link" asp-area="" asp-page="/Questions/Index">Alle Fragen</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Status/Index">Status</a>
+                            <a class="nav-link" asp-area="" asp-page="/Status/Index">Status</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
+                    <ul class="navbar-nav">
+                        <li class="d-block d-sm-none">
+                            <button type="button" class="btn btn-dark btn-sm darkModeButton" >
+                                <i class="fas fa-question darkModeIcon"></i>
+                            </button>
+                        </li>
+                    </ul>
                 </div>
             </div>
+            <button type="button" class="d-none d-sm-block btn btn-dark float-right me-2 darkModeButton">
+                <i class="fas fa-question darkModeIcon"></i>
+            </button>
         </nav>
     </header>
     <div class="container">
@@ -49,6 +70,7 @@
 
     <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/Theme.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
     <script src="~/js/site.js" asp-append-version="true"></script>

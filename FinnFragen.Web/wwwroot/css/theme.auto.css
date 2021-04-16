@@ -1,0 +1,9 @@
+﻿@import url(/lib/bootstrap-dark-5/dist/css/bootstrap-dark.min.css);
+
+@import url(/css/site.css);
+@import url(/css/site.dark.css) (prefers-color-scheme: dark);
+
+@import url(/lib/simplemde/simplemde.min.css) (prefers-color-scheme: light);
+@import url(/css/simplemde.dark.css) (prefers-color-scheme: dark);
+
+@import url(/css/Questions.dark.css) (prefers-color-scheme: dark);

@@ -1,11 +1,11 @@
 ﻿@page
 @model FinnFragen.Web.Pages.CodeModel
 @{
-    ViewData["Title"] = "Nicht gefunden";
+    ViewData["Title"] = "Fehler " + Model.Code;
 }
 
 <div class="text-center">
-    <h1 class="display-4">Diese Seite wurde nicht gefunden</h1>
+    <h1 class="display-4">Fehler @Model.Code</h1>
 
     <h3>Wenn du nach einer Frage suchst wurde sie womöglich gelöscht oder zurückgezogen.</h3>
 
