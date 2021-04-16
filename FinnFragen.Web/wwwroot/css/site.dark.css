@@ -1,3 +1,7 @@
 ﻿#logo {
     content: url("/assets/smalllogo-black.png");
 }
+
+a {
+    color: #769dc4;
+}
