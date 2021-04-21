@@ -104,3 +104,15 @@ body {
     height: 30px;
     max-height: 30px;
 }
+
+.darkModeButton {
+    color: #fff;
+    background-color: #1a1e21;
+    border-color: #191c1f;
+}
+
+.darkModeButton:hover {
+    color: #fff;
+    background-color: #2a2e31;
+    border-color: #2a2e31;
+}

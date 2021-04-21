@@ -18,7 +18,7 @@
     <title>@ViewData["Title"] - finnfragen</title>
     <link href="/lib/font-awesome/css/all.min.css" rel="stylesheet">
     @await RenderSectionAsync("Css", required: false)
-    <link rel="stylesheet" href="~/css/theme.@(theme).css" id="css" />
+    <link rel="stylesheet" href="~/css/theme.@(theme).css" id="css"  asp-append-version="true"/>
 </head>
 <body>
     <header>
@@ -44,14 +44,14 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav">
                         <li class="d-block d-sm-none">
-                            <button type="button" class="btn btn-dark btn-sm darkModeButton" >
+                            <button type="button" class="btn btn-sm darkModeButton" >
                                 <i class="fas fa-question darkModeIcon"></i>
                             </button>
                         </li>
                     </ul>
                 </div>
             </div>
-            <button type="button" class="d-none d-sm-block btn btn-dark float-right me-2 darkModeButton">
+            <button type="button" class="d-none d-sm-block btn float-right me-2 darkModeButton">
                 <i class="fas fa-question darkModeIcon"></i>
             </button>
         </nav>
@@ -70,7 +70,7 @@
 
     <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/Theme.js"></script>
+    <script src="~/js/Theme.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -7,3 +7,6 @@
 @import url(/css/simplemde.dark.css) (prefers-color-scheme: dark);
 
 @import url(/css/Questions.dark.css) (prefers-color-scheme: dark);
+
+@import url(/lib/highlight.js/styles/vs.min.css) (prefers-color-scheme: light);
+@import url(/lib/highlight.js/styles/vs2015.min.css) (prefers-color-scheme: dark);

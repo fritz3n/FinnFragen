@@ -3,3 +3,5 @@
 @import url(/css/site.css);
 
 @import url(/lib/simplemde/simplemde.min.css);
+
+@import url(/lib/highlight.js/styles/vs.min.css);

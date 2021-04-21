@@ -6,6 +6,7 @@ using MailKit.Net.Smtp;
 using Markdig;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -93,8 +95,22 @@ namespace FinnFragen.Web
 			}
 
 			app.UseStatusCodePagesWithReExecute("/Code", "?code={0}");
-
-			app.UseStaticFiles();
+			if (env.IsDevelopment())
+			{
+				app.UseStaticFiles();
+			}
+			else
+			{
+				app.UseStaticFiles(new StaticFileOptions
+				{
+					OnPrepareResponse = ctx =>
+					{
+						// Cache static files for 30 days
+						ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=2592000");
+						ctx.Context.Response.Headers.Append("Expires", DateTime.UtcNow.AddDays(30).ToString("R", CultureInfo.InvariantCulture));
+					}
+				});
+			}
 
 			app.UseRouting();
 

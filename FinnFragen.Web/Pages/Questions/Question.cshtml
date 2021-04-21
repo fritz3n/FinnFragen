@@ -40,3 +40,11 @@
 {
     <a asp-page="/Status/Status" asp-route-id="@Model.Question.Identifier" class="btn btn-primary mt-3">Zum Status</a>
 }
+
+
+@section Scripts
+{
+    <script src="~/lib/highlight.js/highlight.min.js"></script>
+    <script src="~/js/Highlight.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+}
