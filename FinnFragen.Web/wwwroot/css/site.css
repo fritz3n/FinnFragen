@@ -116,3 +116,7 @@ body {
     background-color: #2a2e31;
     border-color: #2a2e31;
 }
+
+.bootstrap-tagsinput input {
+    color: black;
+}
