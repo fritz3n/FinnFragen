@@ -99,7 +99,7 @@ namespace FinnFragen.Web.Pages.Status
 
 			await questionHandler.SendMessageMarkdown(Question, Input.Title, Input.Message, IsAdmin ? Message.Author.Answerer : Message.Author.Asker);
 
-			return Page();
+			return RedirectToPage();
 		}
 	}
 }

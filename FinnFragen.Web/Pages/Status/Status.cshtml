@@ -7,7 +7,7 @@
 @if (Model.IsAdmin)
 {
     <h2>Moin Finn</h2>
-    <p>Frage gestellt von "@Model.Question.Name"</p>
+    <p>Frage gestellt von "@Model.Question.Name" mit Email "@Model.Question.Email"</p>
 }
 else
 {
@@ -38,7 +38,7 @@ else if (Model.Question.QuestionState == Question.State.Blocked)
 
 
 <div class="card border-secondary mb-3">
-    <div class="card-header d-flex align-content-center align-items-center">
+    <div class="card-header d-flex align-content-center align-items-center" data-bs-toggle="collapse" data-bs-target="#question" aria-expanded="false">
         <span class="flex-grow-1">Frage</span>
         @if (Model.Question.QuestionState == Question.State.Answered)
         {
@@ -58,7 +58,7 @@ else if (Model.Question.QuestionState == Question.State.Blocked)
             <a asp-page="/Status/Edit" asp-route-id="@Model.Question.Identifier" class="btn btn-secondary btn-sm ms-1"><i class="far fa-edit"></i></a>
         }
 
-        <button class="btn btn-secondary btn-sm collapsed ms-1" data-bs-toggle="collapse" data-bs-target="#question" aria-expanded="true">
+        <button class="btn btn-secondary btn-sm collapsed ms-1" data-bs-toggle="collapse" data-bs-target="#question">
             <i class="fas fa-chevron-up" aria-hidden="true"></i>
         </button>
     </div>
@@ -74,10 +74,10 @@ else if (Model.Question.QuestionState == Question.State.Blocked)
 @if (Model.Question.QuestionState == Question.State.Answered)
 {
     <div class="card border-secondary mb-3">
-        <div class="card-header d-flex align-content-center align-items-center">
+        <div class="card-header d-flex align-content-center align-items-center" data-bs-toggle="collapse" data-bs-target="#answer">
             <span class="flex-grow-1">Antwort</span>
 
-            <button class="btn btn-secondary btn-sm ms-1" data-bs-toggle="collapse" data-bs-target="#answer" aria-expanded="true">
+            <button class="btn btn-secondary btn-sm ms-1" data-bs-toggle="collapse" data-bs-target="#answer">
                 <i class="fas fa-chevron-up" aria-hidden="true"></i>
             </button>
         </div>
@@ -91,10 +91,10 @@ else if (Model.Question.QuestionState == Question.State.Blocked)
 
 
 <div id="sendMessage" class="card border-secondary mb-3 collapse">
-    <div class="card-header d-flex align-content-center align-items-center">
+    <div class="card-header d-flex align-content-center align-items-center" data-bs-toggle="collapse" data-bs-target="#sendMessage">
         <span class="flex-grow-1">Nachricht senden</span>
 
-        <button class="btn btn-secondary btn-sm ms-1" data-bs-toggle="collapse" data-bs-target="#sendMessage" aria-expanded="true">
+        <button class="btn btn-secondary btn-sm ms-1" data-bs-toggle="collapse" data-bs-target="#sendMessage">
             <i class="fas fa-chevron-up" aria-hidden="true"></i>
         </button>
     </div>
@@ -140,7 +140,7 @@ else if (Model.Question.QuestionState == Question.State.Blocked)
 
         <span class="badge shallow bg-dark d-block text-light">@Model.Messages.Count @(Model.Messages.Count == 1 ? "Nachricht" : "Nachrichten")</span>
 
-        <button class="btn btn-secondary btn-sm ms-1 @(showMessages ? "" : "collapsed")" data-bs-toggle="collapse" data-bs-target="#messages" aria-expanded="true">
+        <button class="btn btn-secondary btn-sm ms-1 @(showMessages ? "" : "collapsed")" data-bs-toggle="collapse" data-bs-target="#messages">
             <i class="fas fa-chevron-up" aria-hidden="true"></i>
         </button>
     </div>
@@ -175,7 +175,7 @@ else if (Model.Question.QuestionState == Question.State.Blocked)
                             {
                                 <span class="badge shallow bg-success me-1 d-block text-white">Vom User</span>
                             }
-                            <button class="btn btn-secondary btn-sm @(first ? "" : "collapsed")" data-bs-toggle="collapse" data-bs-target="#m-@message.Id" aria-expanded="true">
+                            <button class="btn btn-secondary btn-sm @(first ? "" : "collapsed")" data-bs-toggle="collapse" data-bs-target="#m-@message.Id">
                                 <i class="fas fa-chevron-up" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -195,7 +195,7 @@ else if (Model.Question.QuestionState == Question.State.Blocked)
 
             @if (Model.Question.QuestionState != Question.State.Blocked)
             {
-                <button class="btn btn-primary btn-sm collapsed mb-3 d-block" data-bs-toggle="collapse" data-bs-target="#sendMessage" aria-expanded="true">
+                <button class="btn btn-primary btn-sm collapsed mb-3 d-block" data-bs-toggle="collapse" data-bs-target="#sendMessage">
                     Neue Nachricht senden
                 </button>
             }
