@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace FinnFragen.Web.Controllers
 		[HttpGet("questions/all")]
 		public async Task<ActionResult<ResultModel>> GetAll(bool all = false, int? from = null, int? take = null)
 		{
+			Trace.TraceInformation("Starting All Search");
 			bool isAdmin = HttpContext.User.Identity.IsAuthenticated;
 			bool? pageAfter = from is null || take is null ? null : all && isAdmin;
 
@@ -46,6 +48,8 @@ namespace FinnFragen.Web.Controllers
 
 			if (pageAfter == true)
 				models = models.Skip((int)from).Take((int)take);
+
+			Trace.TraceInformation("Finished All Search");
 
 			return new ResultModel()
 			{

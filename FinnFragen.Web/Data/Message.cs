@@ -11,8 +11,8 @@ namespace FinnFragen.Web.Data
 		public virtual Question Question { get; set; }
 
 		public DateTime Date { get; set; }
-		public string MessageTitle { get; set; }
 		public string MessageHtml { get; set; }
+		public bool Seen { get; set; }
 		public string MessageText { get; set; }
 		public Author MessageAuthor { get; set; }
 
@@ -24,5 +24,6 @@ namespace FinnFragen.Web.Data
 			Asker,
 			Answerer
 		}
+
 	}
 }

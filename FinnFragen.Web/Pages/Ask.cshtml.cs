@@ -86,7 +86,7 @@ namespace FinnFragen.Web.Pages
 			if (!ModelState.IsValid)
 				return Page();
 
-#if !DEBUG
+#if !DEBUG || DEBUG
 			if (!await validator.Validate())
 			{
 				ModelState.AddModelError(string.Empty, "Recaptcha nicht valide");

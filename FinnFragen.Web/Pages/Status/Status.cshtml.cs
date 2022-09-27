@@ -97,7 +97,7 @@ namespace FinnFragen.Web.Pages.Status
 			}
 #endif
 
-			await questionHandler.SendMessageMarkdown(Question, Input.Title, Input.Message, IsAdmin ? Message.Author.Answerer : Message.Author.Asker);
+			await questionHandler.SendMessageMarkdown(Question, Input.Message, IsAdmin ? Message.Author.Answerer : Message.Author.Asker);
 
 			return RedirectToPage();
 		}

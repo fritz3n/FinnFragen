@@ -86,5 +86,15 @@
         "dist/toastui-editor-plugin-code-syntax-highlight.min.css"
       ]
     }
+  ,
+{
+  "provider": "unpkg",
+  "library": "@microsoft/signalr@6.0.6",
+  "destination": "wwwroot/lib/microsoft/signalr/",
+  "files": [
+    "dist/browser/signalr.min.js",
+    "dist/browser/signalr.min.js.map"
   ]
+}
+]
 }

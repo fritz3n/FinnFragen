@@ -24,16 +24,16 @@ namespace FinnFragen.Web.Services
 			sanitizer = htmlSanitizer;
 		}
 
-		public Task SendMessageMarkdown(Question question, string title, string markdown, Message.Author author, bool sanitize = true, string template = null)
+		public Task SendMessageMarkdown(Question question, string markdown, Message.Author author, bool sanitize = true, string template = null)
 		{
 			string html = Markdown.ToHtml(markdown, markdownPipeline);
 			if (sanitize)
 				html = sanitizer.Sanitize(html);
 			string text = Markdown.ToPlainText(markdown, markdownPipeline);
-			return SendMessage(question, title, text, html, author, template);
+			return SendMessage(question, text, html, author, template);
 		}
 
-		public async Task SendMessage(Question question, string title, string text, string html, Message.Author author, string template = null)
+		public async Task SendMessage(Question question, string text, string html, Message.Author author, string template = null)
 		{
 			html ??= text;
 
@@ -43,7 +43,6 @@ namespace FinnFragen.Web.Services
 				MessageAuthor = author,
 				MessageHtml = html,
 				MessageText = text,
-				MessageTitle = string.IsNullOrWhiteSpace(title) ? "Nachricht von " + (author == Message.Author.Answerer ? "Finn" : question.Name) : title,
 				Question = question
 			};
 
@@ -103,14 +102,14 @@ namespace FinnFragen.Web.Services
 		{
 			await BlockQuestion(question, false, db);
 
-			await SendMessage(question, "Frage blockiert", text, html, Message.Author.Answerer, "QuestionBlockedContent");
+			await SendMessage(question, text, html, Message.Author.Answerer, "QuestionBlockedContent");
 		}
 
 		public async Task BlockQuestionContentMarkdown(Question question, string markdown, Database db = null)
 		{
 			await BlockQuestion(question, false, db);
 
-			await SendMessageMarkdown(question, "Frage blockiert", markdown, Message.Author.Answerer, false, "QuestionBlockedContent");
+			await SendMessageMarkdown(question, markdown, Message.Author.Answerer, false, "QuestionBlockedContent");
 		}
 
 		public async Task DeleteQuestion(Question question, bool byUser = false, Database db = null)

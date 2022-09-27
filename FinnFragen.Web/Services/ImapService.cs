@@ -163,25 +163,14 @@ namespace FinnFragen.Web.Services
 			{
 				case "message":
 				case "message nomarkdown":
-					string title;
 					string body;
-
-					if (messageText.Contains("-Message-"))
-					{
-						string[] components = messageText.Split("-Message-");
-						title = components[0];
-						body = components[1];
-					}
-					else
-					{
-						title = message.Subject;
-						body = messageText;
-					}
+					body = messageText;
+					
 
 					if (action.Contains("nomarkdown"))
-						await questionHandler.SendMessage(q, title, body, null, Message.Author.Answerer);
+						await questionHandler.SendMessage(q, body, null, Message.Author.Answerer);
 					else
-						await questionHandler.SendMessageMarkdown(q, title, body, Message.Author.Answerer, false);
+						await questionHandler.SendMessageMarkdown(q, body, Message.Author.Answerer, false);
 					break;
 
 				case "answer":
@@ -228,7 +217,7 @@ namespace FinnFragen.Web.Services
 				if (match.Success)
 					body = body.Substring(0, match.Index);
 
-				await questionHandler.SendMessageMarkdown(q, title, body, Message.Author.Asker);
+				await questionHandler.SendMessageMarkdown(q, body, Message.Author.Asker);
 			}
 			else if (message.HtmlBody is not null)
 			{
@@ -238,7 +227,7 @@ namespace FinnFragen.Web.Services
 				if (match.Success)
 					html = html.Substring(0, match.Index);
 
-				await questionHandler.SendMessage(q, title, html, html, Message.Author.Asker);
+				await questionHandler.SendMessage(q, html, html, Message.Author.Asker);
 			}
 			else
 			{

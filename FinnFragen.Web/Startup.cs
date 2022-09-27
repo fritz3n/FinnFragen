@@ -1,4 +1,5 @@
 using FinnFragen.Web.Data;
+using FinnFragen.Web.Hubs;
 using FinnFragen.Web.Services;
 using Ganss.XSS;
 using MailKit.Net.Imap;
@@ -40,6 +41,7 @@ namespace FinnFragen.Web
 					Configuration.GetConnectionString("Ingo"), options => options.EnableRetryOnFailure()));
 			services.AddDatabaseDeveloperPageExceptionFilter();
 			services.AddHttpContextAccessor();
+			services.AddSignalR();
 			services.AddDefaultIdentity<IdentityUser>(options =>
 			{
 				options.SignIn.RequireConfirmedAccount = false;
@@ -131,6 +133,7 @@ namespace FinnFragen.Web
 			{
 				endpoints.MapControllers();
 				endpoints.MapRazorPages();
+				endpoints.MapHub<MessageHub>("/messageHub");
 			});
 		}
 	}

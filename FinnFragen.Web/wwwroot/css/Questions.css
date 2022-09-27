@@ -37,7 +37,7 @@
     position: relative;
     overflow: hidden;
     background-color: #CFD4DB;
-    color: #CFD4DB;
+    color: transparent !important;
     user-select: none;
 }
 
