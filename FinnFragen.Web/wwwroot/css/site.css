@@ -120,3 +120,13 @@ body {
 .bootstrap-tagsinput input {
     color: black;
 }
+
+.pointer {
+    cursor: pointer;
+}
+
+
+
+.CodeMirror-gutters {
+    border: none !important;
+}

@@ -4,6 +4,7 @@ using Ganss.XSS;
 using MailKit.Net.Imap;
 using MailKit.Net.Smtp;
 using Markdig;
+using Markdig.Prism;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -57,7 +58,7 @@ namespace FinnFragen.Web
 
 			services.AddScoped<CaptchaValidator>();
 			services.AddScoped<QuestionHandler>();
-			services.AddSingleton(s => new MarkdownPipelineBuilder().UseAdvancedExtensions().UseEmojiAndSmiley().UseBootstrap().Build());
+			services.AddSingleton(s => new MarkdownPipelineBuilder().UseAdvancedExtensions().UseEmojiAndSmiley().UsePrism().UseBootstrap().Build()) ;
 
 			services.AddSingleton(s =>
 			{
@@ -69,6 +70,11 @@ namespace FinnFragen.Web
 				sanitizer.AllowedClasses.Add("img-fluid");
 				sanitizer.AllowedClasses.Add("figure");
 				sanitizer.AllowedClasses.Add("figure-caption");
+				sanitizer.RemovingCssClass += (o, e) =>
+				{
+					if (e.CssClass.StartsWith("language-*"))
+						e.Cancel = true;
+				};
 				return sanitizer;
 			});
 
@@ -97,7 +103,10 @@ namespace FinnFragen.Web
 			app.UseStatusCodePagesWithReExecute("/Code", "?code={0}");
 			if (env.IsDevelopment())
 			{
-				app.UseStaticFiles();
+				app.UseStaticFiles(new StaticFileOptions
+				{
+					ServeUnknownFileTypes = true
+				});
 			}
 			else
 			{
@@ -108,7 +117,8 @@ namespace FinnFragen.Web
 						// Cache static files for 30 days
 						ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=2592000");
 						ctx.Context.Response.Headers.Append("Expires", DateTime.UtcNow.AddDays(30).ToString("R", CultureInfo.InvariantCulture));
-					}
+					},
+					ServeUnknownFileTypes = true
 				});
 			}
 

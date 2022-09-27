@@ -38,7 +38,7 @@ else if (Model.Question.QuestionState == Question.State.Blocked)
 
 
 <div class="card border-secondary mb-3">
-    <div class="card-header d-flex align-content-center align-items-center" data-bs-toggle="collapse" data-bs-target="#question" aria-expanded="false">
+    <div class="card-header d-flex align-content-center align-items-center pointer" data-bs-toggle="collapse" data-bs-target="#question" aria-expanded="false">
         <span class="flex-grow-1">Frage</span>
         @if (Model.Question.QuestionState == Question.State.Answered)
         {
@@ -74,7 +74,7 @@ else if (Model.Question.QuestionState == Question.State.Blocked)
 @if (Model.Question.QuestionState == Question.State.Answered)
 {
     <div class="card border-secondary mb-3">
-        <div class="card-header d-flex align-content-center align-items-center" data-bs-toggle="collapse" data-bs-target="#answer">
+        <div class="card-header d-flex align-content-center align-items-center pointer" data-bs-toggle="collapse" data-bs-target="#answer">
             <span class="flex-grow-1">Antwort</span>
 
             <button class="btn btn-secondary btn-sm ms-1" data-bs-toggle="collapse" data-bs-target="#answer">
@@ -134,7 +134,7 @@ else if (Model.Question.QuestionState == Question.State.Blocked)
 }
 
 <div class="card border-secondary mb-3">
-    <div class="card-header d-flex align-content-center align-items-center">
+    <div class="card-header d-flex align-content-center align-items-center pointer" data-bs-toggle="collapse" data-bs-target="#messages">
 
         <span class="flex-grow-1">Nachrichten</span>
 

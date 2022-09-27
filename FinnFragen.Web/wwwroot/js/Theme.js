@@ -28,6 +28,8 @@
             currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
         else
             currentTheme = savedTheme;
+
+        window.darkMode = currentTheme == "dark";
     }
     updateCurrentTheme();
 

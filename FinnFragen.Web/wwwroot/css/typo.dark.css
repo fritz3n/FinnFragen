@@ -1,0 +1,19 @@
+﻿#typoMenu {
+    position: absolute;
+    z-index: 3;
+    border-radius: 0px 8px 8px 8px;
+    border: 1px solid #515151;
+    background-color: #222;
+}
+
+#typoMenu .typoItem:hover,
+#typoMenu .typoSugItem:hover {
+    cursor: pointer;
+    background-color: #333;
+}
+
+
+.typoFlags {
+    border: none;
+    background-color: transparent;
+}

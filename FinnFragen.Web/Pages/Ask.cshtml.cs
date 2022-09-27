@@ -50,14 +50,13 @@ namespace FinnFragen.Web.Pages
 			[Display(Name = "Deine Frage")]
 			public string Question { get; set; }
 			[EmailAddress(ErrorMessage = "Bitte gebe eine valide Emailadresse ein.")]
-			[Display(Name = "Emailadresse für Rückfragen/Benachrichtigungen (Optional)")]
+			[Display(Name = "Emailadresse für Benachrichtigungen (Optional)")]
 			public string Email { get; set; }
 
-			[Required(ErrorMessage = "Bitte gib mindestens einen Tag ein. (e.g. C#, Java oder Mathe)")]
 			public string Tags { get; set; }
 
-			[Display(Name = "Frage im Browser speichern?")]
-			public bool SaveId { get; set; }
+			[Display(Name = "Frage Merken?")]
+			public bool SaveId { get; set; } = true;
 
 			[Display(Name = "Ich bin mit der veröffentlichung meiner Frage nach Beantwortung einverstanden. Eine Frage kann jederzeit mit der zugehörigen ID gelöscht werden.")]
 			public bool Consent { get; set; }
@@ -78,6 +77,7 @@ namespace FinnFragen.Web.Pages
 
 		public IActionResult OnGet()
 		{
+			Input = new InputModel();
 			return Page();
 		}
 
