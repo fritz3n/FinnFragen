@@ -81,6 +81,26 @@ namespace FinnFragen.Web.Services
 			if (!string.IsNullOrWhiteSpace(question.Email))
 				notificationBuilder.PushForQuestion("QuestionAnswered", question, true, false);
 		}
+		public Task DraftQuestionMarkdown(Question question, string markdown, Database db = null)
+		{
+			db ??= database;
+
+			string html = Markdown.ToHtml(markdown, markdownPipeline);
+			string text = Markdown.ToPlainText(markdown, markdownPipeline);
+			return DraftQuestion(question, text, html, db, markdown);
+		}
+		public async Task DraftQuestion(Question question, string text, string html, Database db = null, string source = null)
+		{
+			html ??= text;
+			db ??= database;
+
+			question.AnswerSource = source;
+			question.AnswerText = text;
+			question.AnswerHtml = html;
+
+
+			await db.SaveChangesAsync();
+		}
 
 		public async Task BlockQuestion(Question question, bool byUser = false, Database db = null)
 		{

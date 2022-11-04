@@ -72,5 +72,25 @@ namespace FinnFragen.Web.Pages.Status
 
 			return Redirect(ret ?? ("/Status/Status/" + id));
 		}
+		public async Task<IActionResult> OnPostDraftAsync(string id, string ret)
+		{
+			if (!HttpContext.User.Identity.IsAuthenticated)
+				return NotFound();
+
+			if (id is null)
+				return NotFound();
+
+			Question = await questionHandler.QuestionFromId(id);
+
+			if (Question is null)
+				return NotFound();
+
+			if (!ModelState.IsValid)
+				return Page();
+
+			await questionHandler.DraftQuestionMarkdown(Question, Input.Message);
+
+			return Redirect(ret ?? ("/Status/Status/" + id));
+		}
 	}
 }
