@@ -34,11 +34,11 @@
             <form method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-
-                <div class="form-group">
-                    <label asp-for="Input.Message"></label>
-                    <textarea asp-for="Input.Message" id="mde"> </textarea>
+                <div class="form-group mb-3">
+                    <label asp-for="Input.Message" class="mb-2 bold"></label>
+                    <textarea asp-for="Input.Message" id="mdeText"># Antwort</textarea>
                     <span asp-validation-for="Input.Message" class="text-danger"></span>
+                    <div id="mde"></div>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Beantworten</button>
@@ -51,11 +51,18 @@
 @section Scripts
 {
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="~/lib/simplemde/simplemde.min.js"></script>
+    <script src="~/lib/Prism/prism.min.js"></script>
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
     <script src="~/js/Index.js"></script>
     <partial name="_ValidationScriptsPartial" />
 }
 @section Css
 {
+    <link rel="stylesheet" href="~/lib/prism/themes/prism-twilight.min.css">
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-tagsinput/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="~/css/typo.css">
     <link rel="stylesheet" href="~/css/Index.css">
 }
