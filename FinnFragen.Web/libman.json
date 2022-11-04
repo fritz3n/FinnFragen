@@ -19,7 +19,7 @@
       "destination": "wwwroot/lib/highlight.js/"
     },
     {
-      "library": "twitter-bootstrap@5.2.1",
+      "library": "twitter-bootstrap@5.2.2",
       "destination": "wwwroot/lib/twitter-bootstrap/"
     },
     {
