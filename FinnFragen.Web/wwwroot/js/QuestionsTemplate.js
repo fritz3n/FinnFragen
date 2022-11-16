@@ -15,13 +15,11 @@ function htmlForQuestion(q) {
             <p class="mx-3 mt-3">${new Date(q.answerDate).toLocaleDateString("de-DE")}</p>
             <p class="small col-12 px-3">${escapeHtml(q.synopsis)}</p>
             <div class="px-3 flex-grow-1">
-                ${tags}
             <div class="d-flex flex-row flex-grow-1">
                 <div class="px-3 flex-shrink-1">
                     ${tags}
                 </div>
                 <p class="text-muted px-3 text-end flex-grow-1 text-nowrap">von ${escapeHtml(q.name)}</p>
             </div>
-            <p class="text-muted px-3 text-right">von ${escapeHtml(q.name)}</p>
         </li>`;
 }
