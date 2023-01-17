@@ -16,6 +16,7 @@
 	<ItemGroup>
 	  <Content Remove="wwwroot\css\typo.dark.css" />
 	  <Content Remove="wwwroot\js\Ask.js" />
+	  <Content Remove="wwwroot\js\autosave.js" />
 	</ItemGroup>
 
 	<ItemGroup>

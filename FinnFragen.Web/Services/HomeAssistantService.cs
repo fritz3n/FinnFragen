@@ -13,6 +13,10 @@ namespace FinnFragen.Web.Services
 	{
 		public HomeAssistantService(IConfiguration config)
 		{
+#if DEBUG
+			return;
+#endif
+
 			if (!ClientFactory.IsInitialized)
 			{
 				IConfigurationSection section = config.GetSection("HA");
@@ -21,13 +25,19 @@ namespace FinnFragen.Web.Services
 		}
 
 		public void NotifyForQuestion(Question question)
-		{
-			Task.Run(async () => await NotifyForQuestionAsync(question));
+        {
+#if DEBUG
+            return;
+#endif
+            Task.Run(async () => await NotifyForQuestionAsync(question));
 		}
 
 		public async Task NotifyForQuestionAsync(Question question)
-		{
-			ServiceClient client = ClientFactory.GetClient<ServiceClient>();
+        {
+#if DEBUG
+			return;
+#endif
+            ServiceClient client = ClientFactory.GetClient<ServiceClient>();
 			await client.CallService("script.new_question",
 				new
 				{

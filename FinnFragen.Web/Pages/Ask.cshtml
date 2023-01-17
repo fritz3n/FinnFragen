@@ -31,12 +31,13 @@
 
             <div class="form-group mb-3">
                 <label asp-for="Input.Question" class="mb-2 bold"></label>
-                <textarea asp-for="Input.Question" id="mdeText">## Deine Frage</textarea>
+                <textarea asp-for="Input.Question" id="mdeText"></textarea>
                 <span asp-validation-for="Input.Question" class="text-danger"></span>
                 <div id="mde"></div>
             </div>
 
-            <div class="form-group mb-3">
+            <div class="form-group mb-3 collapse" id="restoreButtonSection">
+                <button class="btn btn-outline-success" type="button" id="restoreButton">Frage wiederherstellen</button>
             </div>
 
             <div class="form-floating mb-2">
@@ -76,6 +77,7 @@
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     <script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
     <script src="~/lib/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+    <script src="~/js/Autosave.js"></script>
     <script src="~/js/Index.js"></script>
     <script src="~/js/Ask.js"></script>
     <partial name="_ValidationScriptsPartial" />

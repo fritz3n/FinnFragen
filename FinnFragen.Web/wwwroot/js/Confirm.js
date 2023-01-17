@@ -23,4 +23,6 @@
         ids.push({ id: id, name: name});
 
     localStorage.setItem("ids", JSON.stringify(ids));
+
+    window.clearAutosave();
 })()

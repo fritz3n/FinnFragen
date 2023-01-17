@@ -24,10 +24,20 @@
             ['hr', 'quote'],
         ],
         events: {
-            change: () => input.value = editor.getMarkdown()
+            change: () => {
+                input.value = editor.getMarkdown()
+                if (window.autosave) {
+                    window.autosave(input.value);
+                }
+            }
         },
         plugins: [codeSyntaxHighlight]
     });
+
+
+    window.updateMde = () => editor.setMarkdown(input.value, true);
+
+    window.editor = editor;
 
 
     $('#tags').tagsinput({
