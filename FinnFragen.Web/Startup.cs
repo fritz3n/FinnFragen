@@ -82,7 +82,6 @@ namespace FinnFragen.Web
 			services.AddSingleton<NotificationBuilder>();
 			services.AddSingleton<HomeAssistantService>();
 			services.AddHostedService<NotifyService>();
-			services.AddHostedService<ImapService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
