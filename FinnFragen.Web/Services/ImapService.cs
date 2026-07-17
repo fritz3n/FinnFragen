@@ -1,5 +1,5 @@
 ﻿using FinnFragen.Web.Data;
-using Ganss.XSS;
+using Ganss.Xss;
 using MailKit;
 using MailKit.Net.Imap;
 using MailKit.Search;

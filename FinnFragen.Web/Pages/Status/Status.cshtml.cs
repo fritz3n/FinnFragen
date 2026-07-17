@@ -1,93 +1,91 @@
 using FinnFragen.Web.Data;
 using FinnFragen.Web.Services;
-using Ganss.XSS;
+using Ganss.Xss;
 using Markdig;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinnFragen.Web.Pages.Status
+namespace FinnFragen.Web.Pages.Status;
+
+public class StatusModel : PageModel
 {
-	public class StatusModel : PageModel
-	{
-		private readonly Database database;
-		private readonly HtmlSanitizer sanitizer;
-		private readonly QuestionHandler questionHandler;
-		private readonly CaptchaValidator validator;
-		private readonly MarkdownPipeline markdown;
+    private readonly Database database;
+    private readonly HtmlSanitizer sanitizer;
+    private readonly QuestionHandler questionHandler;
+    private readonly CaptchaValidator validator;
+    private readonly MarkdownPipeline markdown;
 
-		public Question Question { get; set; }
+    public Question Question { get; set; }
 
-		public List<Message> Messages { get; set; }
-		public string QuestionHtml { get; set; }
-		public string AnswerHtml { get; set; }
-		public string SiteKey { get; set; }
+    public List<Message> Messages { get; set; }
+    public string QuestionHtml { get; set; }
+    public string AnswerHtml { get; set; }
+    public string SiteKey { get; set; }
 
-		public bool IsAdmin => HttpContext.User.Identity.IsAuthenticated;
+    public bool IsAdmin => this.HttpContext.User.Identity.IsAuthenticated;
 
-		[BindProperty]
-		public MessageModel Input { get; set; }
+    [BindProperty]
+    public MessageModel Input { get; set; }
 
-		public class MessageModel
-		{
-			[MinLength(5, ErrorMessage = "Betreff zu kurz.")]
-			[Display(Name = "Betreff (Optional)")]
-			public string Title { get; set; }
+    public class MessageModel
+    {
+        [MinLength(5, ErrorMessage = "Betreff zu kurz.")]
+        [Display(Name = "Betreff (Optional)")]
+        public string Title { get; set; }
 
-			[Required(ErrorMessage = "Bitte gib deine Nachricht ein.")]
-			[MinLength(10, ErrorMessage = "Nachricht zu kurz.")]
-			[Display(Name = "Deine Nachricht")]
-			public string Message { get; set; }
-		}
+        [Required(ErrorMessage = "Bitte gib deine Nachricht ein.")]
+        [MinLength(10, ErrorMessage = "Nachricht zu kurz.")]
+        [Display(Name = "Deine Nachricht")]
+        public string Message { get; set; }
+    }
 
-		public StatusModel(Database database, HtmlSanitizer sanitizer, QuestionHandler questionHandler, IConfiguration configuration, CaptchaValidator validator, MarkdownPipeline markdown)
-		{
-			this.database = database;
-			this.sanitizer = sanitizer;
-			this.questionHandler = questionHandler;
-			this.validator = validator;
-			this.markdown = markdown;
-			SiteKey = configuration.GetValue<string>("Captcha:SiteKey");
-		}
+    public StatusModel(Database database, HtmlSanitizer sanitizer, QuestionHandler questionHandler, IConfiguration configuration, CaptchaValidator validator, MarkdownPipeline markdown)
+    {
+        this.database = database;
+        this.sanitizer = sanitizer;
+        this.questionHandler = questionHandler;
+        this.validator = validator;
+        this.markdown = markdown;
+        this.SiteKey = configuration.GetValue<string>("Captcha:SiteKey");
+    }
 
-		public async Task<IActionResult> OnGetAsync(string id)
-		{
-			if (id is null)
-				return NotFound();
+    public async Task<IActionResult> OnGetAsync(string id)
+    {
+        if (id is null)
+            return NotFound();
 
-			Question = await database.Questions.FirstOrDefaultAsync(q => q.Identifier == id);
+        this.Question = await this.database.Questions.FirstOrDefaultAsync(q => q.Identifier == id);
 
-			if (Question is null)
-				return NotFound();
+        if (this.Question is null)
+            return NotFound();
 
-			Messages = Question.Messages;
+        this.Messages = this.Question.Messages;
 
-			return Page();
-		}
+        return Page();
+    }
 
-		public async Task<IActionResult> OnPostAsync(string id)
-		{
-			if (id is null)
-				return NotFound();
+    public async Task<IActionResult> OnPostAsync(string id)
+    {
+        if (id is null)
+            return NotFound();
 
+        this.Question = await this.database.Questions.FirstOrDefaultAsync(q => q.Identifier == id);
 
-			Question = await database.Questions.FirstOrDefaultAsync(q => q.Identifier == id);
+        if (this.Question is null)
+            return NotFound();
 
-			if (Question is null)
-				return NotFound();
+        if (this.Question.QuestionState == Question.State.Blocked)
+            return Forbid();
+        this.Messages = this.Question.Messages;
 
-			if (Question.QuestionState == Question.State.Blocked)
-				return Forbid();
-			Messages = Question.Messages;
-
-			if (!ModelState.IsValid)
-				return Page();
+        if (!this.ModelState.IsValid)
+            return Page();
 
 #if !DEBUG
 			if (!IsAdmin && !await validator.Validate())
@@ -97,9 +95,8 @@ namespace FinnFragen.Web.Pages.Status
 			}
 #endif
 
-			await questionHandler.SendMessageMarkdown(Question, Input.Title, Input.Message, IsAdmin ? Message.Author.Answerer : Message.Author.Asker);
+        await this.questionHandler.SendMessageMarkdown(this.Question, this.Input.Title, this.Input.Message, this.IsAdmin ? Message.Author.Answerer : Message.Author.Asker);
 
-			return RedirectToPage();
-		}
-	}
+        return RedirectToPage();
+    }
 }
