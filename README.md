@@ -1,3 +1,3 @@
 # FinnFragen
 
-Source of [finnfragen.de](https://finnfragen.de)
+Source of FinnFragen. Now under a non-public domain.
